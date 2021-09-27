@@ -16,44 +16,32 @@ var margin = {
     left: 50
 };
 
-var svg = d3.select("body")
-            .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom);
+function anim() {
 
-svg.selectAll("mycircles")
-.data(datapoints)
-.enter()
-.append("circle")
-    .attr("cy", 40)
-    .attr("cx", 50)
-    .attr("r", 5)
-    .style("fill", function(d){return d.color})
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w + margin.left + margin.right)
+                .attr("height", h + margin.top + margin.bottom);
 
-svg.selectAll("circle")
-    .data(datapoints)
-    .transition()
-    .delay(500)
-    .duration(2500)
-    .attr("cx", function(d) {return d.log_one_in_x*50})
-    .attr("cy", hmargin)
-    .style("fill", "grey");
-    
-// Animation: put them down one by one:
-// function triggerTransitionDelay(){
-d3.selectAll("circle")
+                
+    svg.selectAll("mycircles")
     .data(datapoints)
     .enter()
-    .transition()
-    .duration(2000)
-    .attr("cy", function(d){return d.position})
-    .attr("cx", function(d){return d})
-    .delay(function(i){return(i*10)})
-    .transition() // First fade to green.
-    .style("fill", "grey")
-//   .transition() // Then red.
-//     .style("fill", "red")
-//   .transition() // Wait one second. Then brown, and remove.
-//     .delay(1000)
-//     .style("fill", "brown")
-//     .remove();
+    .append("circle")
+        .attr("cy", 40)
+        .attr("cx", 50)
+        .attr("r", 5)
+        .style("fill", function(d){return d.color})
+
+    svg.selectAll("circle")
+        .data(datapoints)
+        .transition()
+        .delay(500)
+        .duration(2500)
+        .attr("cx", function(d) {return d.log_one_in_x*50})
+        .attr("cy", hmargin)
+        .style("fill", "grey")
+        .remove();
+}
+
+anim();
