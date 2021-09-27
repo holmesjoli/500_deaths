@@ -30,6 +30,7 @@ svg.selectAll("circle")
     .duration(2500)
     .attr("cx", function(d) {return d.log_one_in_x*50})
     .attr("cy", hmargin)
+    .style("fill", "grey")
     
 // Animation: put them down one by one:
 // function triggerTransitionDelay(){
