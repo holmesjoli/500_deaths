@@ -18,8 +18,8 @@ var margin = {
 
 var svg = d3.select("body")
             .append("svg")
-            .attr("width", w)
-            .attr("height", h);
+            .attr("width", w + margin.left + margin.right)
+            .attr("height", h + margin.top + margin.bottom);
 
 svg.selectAll("mycircles")
 .data(datapoints)
@@ -27,7 +27,7 @@ svg.selectAll("mycircles")
 .append("circle")
     .attr("cy", 40)
     .attr("cx", 50)
-    .attr("r", 10)
+    .attr("r", 5)
     .style("fill", function(d){return d.color})
 
 svg.selectAll("circle")
