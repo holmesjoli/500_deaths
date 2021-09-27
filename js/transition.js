@@ -16,22 +16,22 @@ var margin = {
     left: 50
 };
 
-function anim() {
-
-    var svg = d3.select("body")
+var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w + margin.left + margin.right)
                 .attr("height", h + margin.top + margin.bottom);
 
-                
-    svg.selectAll("mycircles")
-    .data(datapoints)
-    .enter()
-    .append("circle")
-        .attr("cy", 40)
-        .attr("cx", 50)
-        .attr("r", 5)
-        .style("fill", function(d){return d.color})
+svg.selectAll("mycircles")
+.data(datapoints)
+.enter()
+.append("circle")
+    .attr("cy", 40)
+    .attr("cx", 50)
+    .attr("r", 5)
+    .attr("id", function(d){return d.demo_indicator})
+    .style("fill", function(d){return d.color})
+
+function anim() {
 
     svg.selectAll("circle")
         .data(datapoints)
@@ -41,7 +41,7 @@ function anim() {
         .attr("cx", function(d) {return d.log_one_in_x*50})
         .attr("cy", hmargin)
         .style("fill", "grey")
-        .remove();
+        // .remove();
 }
 
 anim();
