@@ -9,6 +9,13 @@ var h = 420;
 var hmargin = h - 10;
 var w = 1000;
 
+var margin = {
+    top: 25,
+    right: 50,
+    bottom: 40,
+    left: 50
+};
+
 var svg = d3.select("body")
             .append("svg")
             .attr("width", w)
@@ -30,7 +37,7 @@ svg.selectAll("circle")
     .duration(2500)
     .attr("cx", function(d) {return d.log_one_in_x*50})
     .attr("cy", hmargin)
-    .style("fill", "grey")
+    .style("fill", "grey");
     
 // Animation: put them down one by one:
 // function triggerTransitionDelay(){
