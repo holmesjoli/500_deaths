@@ -93,7 +93,7 @@ function buildViz(containerId) {
         g.selectAll("circle")
             .data(data)
             .transition()
-            .duration(function(d) {return d.millisec_per_death/100})
+            .duration(function(d) {return d.millisec_per_death})
             .attr("cx", function(d) {return x(d.demo_indicator)})
             .attr("cy", innerHeight)
             .style("fill", "grey");
