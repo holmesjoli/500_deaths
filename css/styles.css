@@ -4,7 +4,9 @@ body {
     line-height: 20pt;
     text-align: left;
     padding: 0 10% 0 10%;
-    background: linear-gradient(to bottom, #9bb9d4, #4d6170);
+    /* background: linear-gradient(to bottom, #c3d5e6, #4d6170); */
+    background-color: #4d6170;
+    color: white;
 }
 
 circle {
