@@ -160,7 +160,7 @@ function buildViz(containerId) {
         .append("text")
         .attr("x", innerWidth - 50 + 20)
         .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
-        .style("fill", "grey")
+        .style("fill", "white")
         .text(function(d){ return d.demo_indicator})
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle");
