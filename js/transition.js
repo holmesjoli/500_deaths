@@ -31,8 +31,7 @@ function buildViz(containerId) {
     var innerWidth = width - margin.left - margin.right;
     var innerHeight = height - margin.top - margin.bottom;
 
-    var color = ["#03045e", "#0077b6", "#00b4d8", "#90e0ef", "#caf0f8", 
-    "#fcecc9", "#fb9da0", "#fa757c", "#f39237", "#aa2422"]
+    var color = ["#978ba7", "#95a7b2", "#93b1b4", "#b6c8a9", "#dad497", "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
 
     var svg = d3
     .select(containerId)
@@ -83,12 +82,17 @@ function buildViz(containerId) {
         .enter()
         .append("circle")
             .attr("cy", 20)
-            .attr("cx", 10)
-            .attr("r", 4)
+            .attr("cx", 15)
+            .attr("r", 10)
             .attr("id", function(d){return d.demo_indicator})
             .style("fill", function(d) {
                 return colorScale(d.demo_indicator);
-            });
+            })
+            .style("stroke", function(d) {
+                return colorScale(d.demo_indicator);
+            })
+            .style("stroke-opacity", .7)
+            .style("stroke-width", 3);
 
         g.selectAll("circle")
             .data(data)
@@ -96,7 +100,8 @@ function buildViz(containerId) {
             .duration(function(d) {return d.millisec_per_death})
             .attr("cx", function(d) {return x(d.demo_indicator)})
             .attr("cy", innerHeight)
-            .style("fill", "grey");
+            .style("fill", "grey")
+            .remove();
 
         var yAxis = d3.axisLeft(y).ticks(0);
 
@@ -112,6 +117,28 @@ function buildViz(containerId) {
             .attr('class', 'x-axis')
             .attr('transform', 'translate(0,' + innerHeight + ')')
             .call(xAxis);
+
+
+        //glow
+        //Container for the gradients
+        var defs = svg.append("defs");
+
+        //Filter for the outside glow
+        var filter = defs.append("filter")
+            .attr("id","glow");
+        filter.append("feGaussianBlur")
+            .attr("stdDeviation","1")
+            .attr("result","coloredBlur");
+        var feMerge = filter.append("feMerge");
+        feMerge.append("feMergeNode")
+            .attr("in","coloredBlur");
+        feMerge.append("feMergeNode")
+            .attr("in","SourceGraphic");
+
+        //Apply to your element(s)
+        d3.selectAll("circle")
+        .style("filter", "url(#glow)");
+
     });
 }
 
