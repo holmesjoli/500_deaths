@@ -1,3 +1,20 @@
+// function binDeaths(containerId) {
+
+//     var svg = d3
+//     .select(containerId)
+//     .append('svg')
+//     .attr('height', height)
+//     .attr('width', width);
+
+
+//     var bin1 = d3.bin()
+//     var values1 = distribution("Uniform");
+//     var buckets1 = bin1(values1);
+
+//     console.log("values", values1);
+
+// };
+
 function buildViz(containerId) {
 
     var width = 960;
@@ -20,6 +37,11 @@ function buildViz(containerId) {
     .attr('height', height)
     .attr('width', width);
 
+    // create inner group element
+    var g = svg
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
     d3.json('./data/age_data.json', function(error, data) {
         // handle read errors
         if (error) {
@@ -29,23 +51,55 @@ function buildViz(containerId) {
 
         console.log('data', data);
 
-        svg.selectAll("mycircles")
+        // scales
+        var x = d3
+            .scaleBand()
+            .domain(
+                data.map(function(d) {
+                    return d.demo_indicator;
+                })
+            )
+            .range([0, innerWidth]);
+
+        var y = d3
+            .scaleLinear()
+            .domain([innerHeight, 0])
+            .range([innerHeight, 0]);
+
+        console.log(y.domain(), y.range());
+
+        g.selectAll("mycircles")
         .data(data)
         .enter()
         .append("circle")
             .attr("cy", 20)
             .attr("cx", 10)
-            .attr("r", 7)
+            .attr("r", 4)
             .attr("id", function(d){return d.demo_indicator})
             .style("fill", function(d){return d.color})
 
-        svg.selectAll("circle")
+        g.selectAll("circle")
             .data(data)
             .transition()
             .duration(function(d) {return d.millisec_per_death/100})
-            .attr("cx", function(d) {return d.log_one_in_x*50})
+            .attr("cx", function(d) {return x(d.demo_indicator)})
             .attr("cy", innerHeight)
-            .style("fill", "grey")
+            .style("fill", "grey");
+
+        var yAxis = d3.axisLeft(y).ticks(0);
+
+        g
+            .append('g')
+            .attr('class', 'y-axis')
+            .call(yAxis);
+
+        var xAxis = d3.axisBottom(x);
+
+        g
+            .append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', 'translate(0,' + innerHeight + ')')
+            .call(xAxis);
     });
 }
 
