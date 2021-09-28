@@ -31,6 +31,9 @@ function buildViz(containerId) {
     var innerWidth = width - margin.left - margin.right;
     var innerHeight = height - margin.top - margin.bottom;
 
+    var color = ["#03045e", "#0077b6", "#00b4d8", "#90e0ef", "#caf0f8", 
+    "#fcecc9", "#fb9da0", "#fa757c", "#f39237", "#aa2422"]
+
     var svg = d3
     .select(containerId)
     .append('svg')
@@ -66,6 +69,13 @@ function buildViz(containerId) {
             .domain([innerHeight, 0])
             .range([innerHeight, 0]);
 
+        var colorScale = d3
+            .scaleOrdinal()
+            .domain(data.map(function(d) {
+                return d.demo_indicator;
+            }))
+            .range(color);
+
         console.log(y.domain(), y.range());
 
         g.selectAll("mycircles")
@@ -76,7 +86,9 @@ function buildViz(containerId) {
             .attr("cx", 10)
             .attr("r", 4)
             .attr("id", function(d){return d.demo_indicator})
-            .style("fill", function(d){return d.color})
+            .style("fill", function(d) {
+                return colorScale(d.demo_indicator);
+            });
 
         g.selectAll("circle")
             .data(data)
