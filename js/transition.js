@@ -31,7 +31,7 @@ function buildViz(containerId) {
     var innerWidth = width - margin.left - margin.right;
     var innerHeight = height - margin.top - margin.bottom;
 
-    var color = ["#978ba7", "#95a7b2", "#93b1b4", "#b6c8a9", "#dad497", "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
+    var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e", "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
 
     var svg = d3
     .select(containerId)
@@ -118,7 +118,6 @@ function buildViz(containerId) {
             .attr('transform', 'translate(0,' + innerHeight + ')')
             .call(xAxis);
 
-
         //glow
         //Container for the gradients
         var defs = svg.append("defs");
@@ -138,6 +137,33 @@ function buildViz(containerId) {
         //Apply to your element(s)
         d3.selectAll("circle")
         .style("filter", "url(#glow)");
+
+
+        // Add one dot in the legend for each name.
+        svg.selectAll("legend")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", innerWidth - 50)
+        .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("r", 7)
+        .style("fill", function(d){ return colorScale(d.demo_indicator)})
+        .style("stroke", function(d) {
+            return colorScale(d.demo_indicator);
+        })
+        .style("stroke-opacity", .7);
+
+        // Add one dot in the legend for each name.
+        svg.selectAll("mylabels")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", innerWidth - 50 + 20)
+        .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .style("fill", "grey")
+        .text(function(d){ return d.demo_indicator})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle");
 
     });
 }
