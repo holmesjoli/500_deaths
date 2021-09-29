@@ -34,10 +34,10 @@ function buildViz(containerId) {
     var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e", "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
 
     var svg = d3
-    .select(containerId)
-    .append('svg')
-    .attr('height', height)
-    .attr('width', width);
+        .select(containerId)
+        .append('svg')
+        .attr('height', height)
+        .attr('width', width);
 
     // create inner group element
     var g = svg
@@ -137,7 +137,6 @@ function buildViz(containerId) {
         //Apply to your element(s)
         d3.selectAll("circle")
         .style("filter", "url(#glow)");
-
 
         // Add one dot in the legend for each name.
         svg.selectAll("legend")
