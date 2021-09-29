@@ -158,33 +158,11 @@ function animData(containerId, color) {
     });
 }
 
-function buildTimerSvg(containerId) {
-
-    var dims = dimensions();
-
-    var svg = d3
-        .select(containerId)
-        .append("svg")
-        .attr("width", dims.innerWidth) 
-        .attr("height", 105);
-
-    // Add the path using this helper function
-    svg.append('circle')
-        .attr('cx', dims.innerWidth-52)
-        .attr('cy', 52)
-        .attr('r', 50)
-        .attr('stroke', 'white')
-        .style("stroke-width", 3)
-        .style("fill", "none");
-}
-
 function buildViz(containerId, timerId) {
 
     var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e",          "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
 
     animData(containerId, color);
-
-    // buildTimerSvg(timerId);
 }
 
 buildViz("#viz", "#timer");
