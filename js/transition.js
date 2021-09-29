@@ -18,7 +18,7 @@
 function buildViz(containerId) {
 
     var width = 960;
-    var height = 500;
+    var height = 450;
 
     var margin = {
         top: 50,
