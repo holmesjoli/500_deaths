@@ -1,19 +1,23 @@
-// function binDeaths(containerId) {
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
 
-//     var svg = d3
-//     .select(containerId)
-//     .append('svg')
-//     .attr('height', height)
-//     .attr('width', width);
+function pad(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+        return "0" + valString;
+    } else {
+        return valString;
+    }
+};
 
+function setTime() {
+    ++totalSeconds;
+    document.getElementById('seconds').innerHTML = pad(totalSeconds % 60);
+    document.getElementById('minutes').innerHTML = pad(parseInt(totalSeconds / 60));
+};
 
-//     var bin1 = d3.bin()
-//     var values1 = distribution("Uniform");
-//     var buckets1 = bin1(values1);
-
-//     console.log("values", values1);
-
-// };
+setInterval(setTime, 1000);
 
 function buildViz(containerId) {
 
