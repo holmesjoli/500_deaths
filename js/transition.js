@@ -1,31 +1,4 @@
-function buildViz(containerId) {
-
-    var width = 960;
-    var height = 450;
-
-    var margin = {
-        top: 50,
-        right: 50,
-        bottom: 50,
-        left: 50
-    };
-
-    // calculate dimensions without margins
-    var innerWidth = width - margin.left - margin.right;
-    var innerHeight = height - margin.top - margin.bottom;
-
-    var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e", "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
-
-    var svg = d3
-        .select(containerId)
-        .append('svg')
-        .attr('height', height)
-        .attr('width', width);
-
-    // create inner group element
-    var g = svg
-        .append('g')
-        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+function animData(innerWidth, innerHeight, color, g) {
 
     d3.json('./data/age_data.json', function(error, data) {
         // handle read errors
@@ -148,6 +121,58 @@ function buildViz(containerId) {
         .style("alignment-baseline", "middle");
 
     });
+}
+
+function buildViz(containerId) {
+
+    var width = 960;
+    var height = 450;
+
+    var margin = {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50
+    };
+
+    // calculate dimensions without margins
+    var innerWidth = width - margin.left - margin.right;
+    var innerHeight = height - margin.top - margin.bottom;
+
+    var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e",          "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
+
+    var svg = d3
+        .select(containerId)
+        .append('svg')
+        .attr('height', height)
+        .attr('width', width);
+
+    // create inner group element
+    var g = svg
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    animData(innerWidth, innerHeight, color, g);
+
+    buildTimerSvg("#timer");
+}
+
+function buildTimerSvg(containerId) {
+
+    var svg = d3
+        .select(containerId)
+        .append("svg")
+        .attr("width", 200)
+        .attr("height", 200);
+
+    // Add the path using this helper function
+    svg.append('circle')
+        .attr('cx', 100)
+        .attr('cy', 100)
+        .attr('r', 50)
+        .attr('stroke', 'white')
+        .style("stroke-width", 3)
+        .style("fill-opacity", 0);
 }
 
 buildViz('#viz');
