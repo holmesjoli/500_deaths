@@ -1,4 +1,4 @@
-function buildTimer(containerId) {
+function buildTimer() {
     var totalSeconds = 0;
     
     function pad(val) {
@@ -17,7 +17,6 @@ function buildTimer(containerId) {
     };
     
     setInterval(setTime, 1000);
-
 };
 
-buildTimer("timer");
+buildTimer();
