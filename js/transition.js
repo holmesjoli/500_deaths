@@ -145,7 +145,7 @@ function buildViz(containerId) {
         .enter()
         .append("circle")
         .attr("cx", innerWidth - 50)
-        .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("cy", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 7)
         .style("fill", function(d){ return colorScale(d.demo_indicator)})
         .style("stroke", function(d) {
@@ -159,7 +159,7 @@ function buildViz(containerId) {
         .enter()
         .append("text")
         .attr("x", innerWidth - 50 + 20)
-        .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("y", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", "white")
         .text(function(d){ return d.demo_indicator})
         .attr("text-anchor", "left")
