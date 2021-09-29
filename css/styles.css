@@ -12,3 +12,13 @@ body {
 circle {
 	opacity: 0.9;
 }
+
+.x-axis > g > line,
+.x-axis > path,
+.y-axis > path {
+    stroke: #ffffff;
+}
+
+.x-axis > g > text {
+    fill: #ffffff;
+}
