@@ -165,4 +165,4 @@ function buildViz(containerId, timerId) {
     animData(containerId, color);
 }
 
-buildViz("#viz", "#timer");
+buildViz("#r2", "#timer");
