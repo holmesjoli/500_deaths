@@ -18,10 +18,15 @@ body {
     color: white;
 }
 
-p {
+p,
+span {
     font-size: 200%;
     line-height: 40pt;
-    width: 50%;
+}
+
+span {
+    padding-left: 7px;
+    padding-left: 7px;
 }
 
 @keyframes fade-in {
@@ -57,22 +62,36 @@ p {
 .anim-text2 {
     opacity: 0;
     display: inline;
-    animation: fade-in 7s;
+    animation: fade-in 8s;
     animation-delay: 7s;
 }
 
 .anim-text3 {
     opacity: 0;
     display: inline;
-    animation: fade-in 7s;
-    animation-delay: 14s;
+    animation: fade-in 10s;
+    animation-delay: 9s;
 }
 
 .anim-text4 {
     opacity: 0;
     display: inline;
+    animation: fade-in 11s;
+    animation-delay: 11s;
+}
+
+.anim-text5 {
+    opacity: 0;
+    display: inline;
     animation: fade-in 7s;
-    animation-delay: 21s;
+    animation-delay: 22s;
+}
+
+.anim-text6 {
+    opacity: 0;
+    display: inline;
+    animation: fade-in 7s;
+    animation-delay: 29s;
 }
 
 .stack-top{
