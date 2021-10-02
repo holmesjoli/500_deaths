@@ -1,0 +1,30 @@
+library(ggplot2)
+library(gganimate)
+
+age <- df %>%
+  dplyr::filter(demographic == "age") %>%
+  dplyr::select(demo_indicator, death_per_min, min_per_death, 
+                death_per_hour)
+
+# df <- data.frame(x = 1,
+#                  y = 60:1,
+#                  time = 1:60)
+
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_point() +
+  # geom_line() +
+  transition_time(time)
+
+
+ggplot(df, aes(factor(cyl), mpg)) + 
+  geom_boxplot() + 
+  # Here comes the gganimate code
+  transition_states(
+    gear,
+    transition_length = 2,
+    state_length = 1
+  ) +
+  enter_fade() + 
+  exit_shrink() +
+  ease_aes('sine-in-out')
