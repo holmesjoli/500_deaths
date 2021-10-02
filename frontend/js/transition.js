@@ -191,5 +191,5 @@ function buildViz(containerId) {
 var delay = 36000;
 setTimeout(function() {
     buildTimer();
-    buildViz("#viz");
+    buildViz("#r2");
 }, delay);
