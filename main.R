@@ -22,6 +22,8 @@ df <- one_in_x_est.sex() %>%
   dplyr::bind_rows(one_in_x_est.age()) %>%
   dplyr::bind_rows(one_in_x_est.state()) %>%
   dplyr::mutate(one_in_x = round(one_in_x),
+                death_per_millisec = n/milliseconds_since_first_death,
+                millisec_per_death = 1/death_per_millisec,
                 death_per_sec = n/seconds_since_first_death,
                 sec_per_death = 1/death_per_sec,
                 death_per_min = n/minutes_since_first_death,
@@ -30,15 +32,15 @@ df <- one_in_x_est.sex() %>%
                 hour_per_death = 1/death_per_hour,
                 death_per_day = n/days_since_first_death,
                 day_per_death = 1/death_per_day) %>%
-  dplyr::mutate(demo_indicator = ifelse(demo_indicator == "85 years and older", "85+", demo_indicator))
+  dplyr::mutate(demo_indicator = ifelse(demo_indicator == "85 years and over", "85+", demo_indicator),
+                demo_indicator = gsub(" years", "", demo_indicator))
 
 
 age <- df %>%
   dplyr::filter(demographic == "age") %>% 
   dplyr::slice(1:10) %>%
-  # dplyr::bind_cols() %>%
   dplyr::mutate(log_one_in_x = log(one_in_x),
-                seq(50, 500, 50)) %>%
+                x = seq(50, 500, 50)) %>%
   dplyr::select(-FIPS)
 
 jsonlite::write_json(age, "./data/age_data.json")
