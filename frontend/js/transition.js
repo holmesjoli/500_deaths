@@ -158,11 +158,11 @@ function animData(containerId, color) {
     });
 }
 
-function buildViz(containerId, timerId) {
+function buildViz(containerId) {
 
     var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e",          "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"]
 
     animData(containerId, color);
 }
 
-buildViz("#r2", "#timer");
+buildViz("#r2");
