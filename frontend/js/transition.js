@@ -1,3 +1,25 @@
+function buildTimer() {
+    var totalSeconds = 0;
+    
+    function pad(val) {
+        var valString = val + "";
+        if (valString.length < 2) {
+            return "0" + valString;
+        } else {
+            return valString;
+        }
+    };
+    
+    function setTime() {
+        ++totalSeconds;
+        document.getElementById('seconds').innerHTML = pad(totalSeconds % 60);
+        document.getElementById('minutes').innerHTML = pad(parseInt(totalSeconds / 60));
+    };
+    
+    setInterval(setTime, 1000);
+};
+
+
 function dimensions () {
     var width = 960;
     var height = 450;
@@ -168,5 +190,6 @@ function buildViz(containerId) {
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 var delay = 36000;
 setTimeout(function() {
+    buildTimer();
     buildViz("#viz");
 }, delay);
