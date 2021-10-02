@@ -17,10 +17,11 @@ hours_since_first_death <- lubridate::time_length(days_since_first_death,
 days_since_first_death <- lubridate::time_length(today - first_death, 
                                                  unit = "days")
 
-df <- one_in_x_est.sex() %>%
-  dplyr::bind_rows(one_in_x_est.ethnicity()) %>%
-  dplyr::bind_rows(one_in_x_est.age()) %>%
-  dplyr::bind_rows(one_in_x_est.state()) %>%
+df <- one_in_x_est.age() 
+# %>%
+#   dplyr::bind_rows(one_in_x_est.ethnicity()) %>%
+#   dplyr::bind_rows(one_in_x_est.age()) %>%
+#   dplyr::bind_rows(one_in_x_est.state()) %>%
   dplyr::mutate(one_in_x = round(one_in_x),
                 death_per_millisec = n/milliseconds_since_first_death,
                 millisec_per_death = 1/death_per_millisec,

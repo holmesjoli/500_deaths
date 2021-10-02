@@ -84,11 +84,19 @@ one_in_x_est.sex <- function() {
 }
 
 deaths_est.age <- function() {
-  
+  browser()
   df <- death_est.helper_age_sex() %>%
     dplyr::filter(group == "By Total" & state == "United States" & 
                   sex == "All Sexes" & age_group != "All Ages") %>% 
-    dplyr::select(demo_indicator = age_group, n = covid_19_deaths)
+    dplyr::select(demo_indicator = age_group, n = covid_19_deaths) %>%
+    dplyr::mutate(demo_indicator = tolower(demo_indicator),
+                  demo_indicator = dplyr::case_when(grepl("Under 1 year", demo_indicator) ~ "1-14 years",
+                                                    grepl("1-4 years", demo_indicator) ~ "1-14 years",
+                                                    grepl("5-14 years", demo_indicator) ~ "1-14 years",
+                                                    grepl("34-44 years", demo_indicator) ~ "34-54 years",
+                                                    grepl("45-54 years", demo_indicator) ~ "34-54 years",
+                                                    grepl("75-84 years", demo_indicator) ~ "75+",
+                                                    grepl("85 years and over", demo_indicator) ~ "75+"))
 }
 
 deaths_est.state <- function() {
@@ -104,9 +112,9 @@ acs_male <- function(df, vars, sex = "male") {
   df %>%
     dplyr::filter(variable %in% paste(table, vars, sep = "_")) %>%
     dplyr::mutate(sex = sex,
-                  demo_indicator = dplyr::case_when(grepl("_003", variable) ~ "1-4 years",
-                                                    grepl("_004", variable) ~ "5-14 years",
-                                                    grepl("_005", variable) ~ "5-14 years",
+                  demo_indicator = dplyr::case_when(grepl("_003", variable) ~ "1-14 years",
+                                                    grepl("_004", variable) ~ "1-14 years",
+                                                    grepl("_005", variable) ~ "1-14 years",
                                                     grepl("_006", variable) ~ "15-24 years",
                                                     grepl("_007", variable) ~ "15-24 years",
                                                     grepl("_008", variable) ~ "15-24 years",
@@ -114,19 +122,19 @@ acs_male <- function(df, vars, sex = "male") {
                                                     grepl("_010", variable) ~ "15-24 years",
                                                     grepl("_011", variable) ~ "25-34 years",
                                                     grepl("_012", variable) ~ "25-34 years",
-                                                    grepl("_013", variable) ~ "35-44 years",
-                                                    grepl("_014", variable) ~ "35-44 years",
-                                                    grepl("_015", variable) ~ "45-54 years",
-                                                    grepl("_016", variable) ~ "45-54 years",
+                                                    grepl("_013", variable) ~ "35-54 years",
+                                                    grepl("_014", variable) ~ "35-54 years",
+                                                    grepl("_015", variable) ~ "35-54 years",
+                                                    grepl("_016", variable) ~ "35-54 years",
                                                     grepl("_017", variable) ~ "55-64 years",
                                                     grepl("_018", variable) ~ "55-64 years",
                                                     grepl("_019", variable) ~ "55-64 years",
                                                     grepl("_020", variable) ~ "65-74 years",
                                                     grepl("_021", variable) ~ "65-74 years",
                                                     grepl("_022", variable) ~ "65-74 years",
-                                                    grepl("_023", variable) ~ "75-84 years",
-                                                    grepl("_024", variable) ~ "75-84 years",
-                                                    grepl("_025", variable) ~ "85 years and over"))
+                                                    grepl("_023", variable) ~ "75+",
+                                                    grepl("_024", variable) ~ "75+",
+                                                    grepl("_025", variable) ~ "75+"))
 }
 
 acs_female <- function(df, vars, sex = 'female') {
@@ -134,9 +142,9 @@ acs_female <- function(df, vars, sex = 'female') {
   df %>%
     dplyr::filter(variable %in% paste(table, vars, sep = "_")) %>%
     dplyr::mutate(sex = sex,
-                  demo_indicator = dplyr::case_when(grepl("_027", variable) ~ "1-4 years",
-                                                    grepl("_028", variable) ~ "5-14 years",
-                                                    grepl("_029", variable) ~ "5-14 years",
+                  demo_indicator = dplyr::case_when(grepl("_027", variable) ~ "1-14 years",
+                                                    grepl("_028", variable) ~ "1-14 years",
+                                                    grepl("_029", variable) ~ "1-14 years",
                                                     grepl("_030", variable) ~ "15-24 years",
                                                     grepl("_031", variable) ~ "15-24 years",
                                                     grepl("_032", variable) ~ "15-24 years",
@@ -146,17 +154,17 @@ acs_female <- function(df, vars, sex = 'female') {
                                                     grepl("_036", variable) ~ "25-34 years",
                                                     grepl("_037", variable) ~ "35-44 years",
                                                     grepl("_038", variable) ~ "35-44 years",
-                                                    grepl("_039", variable) ~ "45-54 years",
-                                                    grepl("_040", variable) ~ "45-54 years",
+                                                    grepl("_039", variable) ~ "35-54 years",
+                                                    grepl("_040", variable) ~ "35-54 years",
                                                     grepl("_041", variable) ~ "55-64 years",
                                                     grepl("_042", variable) ~ "55-64 years",
                                                     grepl("_043", variable) ~ "55-64 years",
                                                     grepl("_044", variable) ~ "65-74 years",
                                                     grepl("_045", variable) ~ "65-74 years",
                                                     grepl("_046", variable) ~ "65-74 years",
-                                                    grepl("_047", variable) ~ "75-84 years",
-                                                    grepl("_048", variable) ~ "75-84 years",
-                                                    grepl("_049", variable) ~ "85 years and over"))
+                                                    grepl("_047", variable) ~ "75+",
+                                                    grepl("_048", variable) ~ "75+",
+                                                    grepl("_049", variable) ~ "75+"))
 }
 
 pop_est.age <- function(table = "B01001",
