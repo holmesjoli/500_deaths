@@ -165,6 +165,7 @@ function buildViz(containerId) {
     animData(containerId, color);
 }
 
+// Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 var delay = 36000;
 setTimeout(function() {
     buildViz("#viz");
