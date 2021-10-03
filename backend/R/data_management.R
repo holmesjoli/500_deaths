@@ -54,7 +54,7 @@ one_in_x_est.ethnicity <- function() {
     dplyr::mutate(demographic = "ethnicity")
 }
 
-death_est.helper_age_sex <- function(url = "https://data.cdc.gov/resource/vsak-wrfu.json") {
+death_est.helper_age_sex <- function(url = "https://data.cdc.gov/resource/9bhg-hcku.json") {
   get_cdc_data(url = url)
 }
 
@@ -84,19 +84,19 @@ one_in_x_est.sex <- function() {
 }
 
 deaths_est.age <- function() {
-  browser()
+
   df <- death_est.helper_age_sex() %>%
     dplyr::filter(group == "By Total" & state == "United States" & 
                   sex == "All Sexes" & age_group != "All Ages") %>% 
     dplyr::select(demo_indicator = age_group, n = covid_19_deaths) %>%
-    dplyr::mutate(demo_indicator = tolower(demo_indicator),
-                  demo_indicator = dplyr::case_when(grepl("Under 1 year", demo_indicator) ~ "1-14 years",
-                                                    grepl("1-4 years", demo_indicator) ~ "1-14 years",
-                                                    grepl("5-14 years", demo_indicator) ~ "1-14 years",
-                                                    grepl("34-44 years", demo_indicator) ~ "34-54 years",
-                                                    grepl("45-54 years", demo_indicator) ~ "34-54 years",
+    dplyr::mutate(n = as.numeric(n),
+                  demo_indicator = dplyr::case_when(grepl("30-39 years", demo_indicator) ~ "30-49 years",
+                                                    grepl("40-49 years", demo_indicator) ~ "30-49 years",
                                                     grepl("75-84 years", demo_indicator) ~ "75+",
-                                                    grepl("85 years and over", demo_indicator) ~ "75+"))
+                                                    grepl("85 years and over", demo_indicator) ~ "75+",
+                                                    TRUE ~ demo_indicator)) %>%
+    dplyr::group_by(demo_indicator) %>%
+    dplyr::summarise(n = sum(n))
 }
 
 deaths_est.state <- function() {
@@ -107,28 +107,28 @@ deaths_est.state <- function() {
     dplyr::select(demo_indicator = age_group, n = covid_19_deaths)
 }
 
-acs_male <- function(df, vars, sex = "male") {
+acs_male <- function(df, table, vars, sex = "male") {
 
   df %>%
     dplyr::filter(variable %in% paste(table, vars, sep = "_")) %>%
     dplyr::mutate(sex = sex,
-                  demo_indicator = dplyr::case_when(grepl("_003", variable) ~ "1-14 years",
-                                                    grepl("_004", variable) ~ "1-14 years",
-                                                    grepl("_005", variable) ~ "1-14 years",
-                                                    grepl("_006", variable) ~ "15-24 years",
-                                                    grepl("_007", variable) ~ "15-24 years",
-                                                    grepl("_008", variable) ~ "15-24 years",
-                                                    grepl("_009", variable) ~ "15-24 years",
-                                                    grepl("_010", variable) ~ "15-24 years",
-                                                    grepl("_011", variable) ~ "25-34 years",
-                                                    grepl("_012", variable) ~ "25-34 years",
-                                                    grepl("_013", variable) ~ "35-54 years",
-                                                    grepl("_014", variable) ~ "35-54 years",
-                                                    grepl("_015", variable) ~ "35-54 years",
-                                                    grepl("_016", variable) ~ "35-54 years",
-                                                    grepl("_017", variable) ~ "55-64 years",
-                                                    grepl("_018", variable) ~ "55-64 years",
-                                                    grepl("_019", variable) ~ "55-64 years",
+                  demo_indicator = dplyr::case_when(grepl("_003", variable) ~ "0-17 years",
+                                                    grepl("_004", variable) ~ "0-17 years",
+                                                    grepl("_005", variable) ~ "0-17 years",
+                                                    grepl("_006", variable) ~ "0-17 years",
+                                                    grepl("_007", variable) ~ "18-29 years",
+                                                    grepl("_008", variable) ~ "18-29 years",
+                                                    grepl("_009", variable) ~ "18-29 years",
+                                                    grepl("_010", variable) ~ "18-29 years",
+                                                    grepl("_011", variable) ~ "18-29 years",
+                                                    grepl("_012", variable) ~ "30-49 years",
+                                                    grepl("_013", variable) ~ "30-49 years",
+                                                    grepl("_014", variable) ~ "30-49 years",
+                                                    grepl("_015", variable) ~ "30-49 years",
+                                                    grepl("_016", variable) ~ "50-64 years",
+                                                    grepl("_017", variable) ~ "50-64 years",
+                                                    grepl("_018", variable) ~ "50-64 years",
+                                                    grepl("_019", variable) ~ "50-64 years",
                                                     grepl("_020", variable) ~ "65-74 years",
                                                     grepl("_021", variable) ~ "65-74 years",
                                                     grepl("_022", variable) ~ "65-74 years",
@@ -137,28 +137,28 @@ acs_male <- function(df, vars, sex = "male") {
                                                     grepl("_025", variable) ~ "75+"))
 }
 
-acs_female <- function(df, vars, sex = 'female') {
+acs_female <- function(df, table, vars, sex = 'female') {
   
   df %>%
     dplyr::filter(variable %in% paste(table, vars, sep = "_")) %>%
     dplyr::mutate(sex = sex,
-                  demo_indicator = dplyr::case_when(grepl("_027", variable) ~ "1-14 years",
-                                                    grepl("_028", variable) ~ "1-14 years",
-                                                    grepl("_029", variable) ~ "1-14 years",
-                                                    grepl("_030", variable) ~ "15-24 years",
-                                                    grepl("_031", variable) ~ "15-24 years",
-                                                    grepl("_032", variable) ~ "15-24 years",
-                                                    grepl("_033", variable) ~ "15-24 years",
-                                                    grepl("_034", variable) ~ "15-24 years",
-                                                    grepl("_035", variable) ~ "25-34 years",
-                                                    grepl("_036", variable) ~ "25-34 years",
-                                                    grepl("_037", variable) ~ "35-44 years",
-                                                    grepl("_038", variable) ~ "35-44 years",
-                                                    grepl("_039", variable) ~ "35-54 years",
-                                                    grepl("_040", variable) ~ "35-54 years",
-                                                    grepl("_041", variable) ~ "55-64 years",
-                                                    grepl("_042", variable) ~ "55-64 years",
-                                                    grepl("_043", variable) ~ "55-64 years",
+                  demo_indicator = dplyr::case_when(grepl("_027", variable) ~ "0-17 years",
+                                                    grepl("_028", variable) ~ "0-17 years",
+                                                    grepl("_029", variable) ~ "0-17 years",
+                                                    grepl("_030", variable) ~ "0-17 years",
+                                                    grepl("_031", variable) ~ "18-29 years",
+                                                    grepl("_032", variable) ~ "18-29 years",
+                                                    grepl("_033", variable) ~ "18-29 years",
+                                                    grepl("_034", variable) ~ "18-29 years",
+                                                    grepl("_035", variable) ~ "18-29 years",
+                                                    grepl("_036", variable) ~ "30-49 years",
+                                                    grepl("_037", variable) ~ "30-49 years",
+                                                    grepl("_038", variable) ~ "30-49 years",
+                                                    grepl("_039", variable) ~ "30-49 years",
+                                                    grepl("_040", variable) ~ "50-64 years",
+                                                    grepl("_041", variable) ~ "50-64 years",
+                                                    grepl("_042", variable) ~ "50-64 years",
+                                                    grepl("_043", variable) ~ "50-64 years",
                                                     grepl("_044", variable) ~ "65-74 years",
                                                     grepl("_045", variable) ~ "65-74 years",
                                                     grepl("_046", variable) ~ "65-74 years",
@@ -170,7 +170,7 @@ acs_female <- function(df, vars, sex = 'female') {
 pop_est.age <- function(table = "B01001",
                         male = 3:25,
                         female = 27:49) {
-  
+
  male <- stringr::str_pad(male, width = 3, side = "left", pad = "0")
  female <- stringr::str_pad(female, width = 3, side = "left", pad = "0")
 
@@ -178,8 +178,8 @@ pop_est.age <- function(table = "B01001",
  
  df <- get_df(table = table, vars = vars)
  
- df <- acs_male(df = df, vars = male) %>%
-   dplyr::bind_rows(acs_female(df = df, vars = female)) %>%
+ df <- acs_male(df = df, table = table, vars = male) %>%
+   dplyr::bind_rows(acs_female(df = df, table = table,vars = female)) %>%
      dplyr::group_by(demo_indicator) %>%
      dplyr::summarise(pop_est = sum(estimate)) %>%
      dplyr::ungroup()

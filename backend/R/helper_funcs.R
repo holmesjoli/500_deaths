@@ -114,3 +114,10 @@ dwnld.acs <- function(tbls, raw_pth, ...) {
          USE.NAMES = TRUE,
          simplify = FALSE)
 }
+
+get_df <- function(table, vars) {
+
+  attr <- list(variables = paste(table, vars, sep = "_"),
+               geography = "us")
+  do.call(tidycensus::get_acs, attr)
+}

@@ -17,7 +17,7 @@ hours_since_first_death <- lubridate::time_length(days_since_first_death,
 days_since_first_death <- lubridate::time_length(today - first_death, 
                                                  unit = "days")
 
-df <- one_in_x_est.age() 
+df <- one_in_x_est.age() %>%
 # %>%
 #   dplyr::bind_rows(one_in_x_est.ethnicity()) %>%
 #   dplyr::bind_rows(one_in_x_est.age()) %>%
@@ -33,18 +33,15 @@ df <- one_in_x_est.age()
                 hour_per_death = 1/death_per_hour,
                 death_per_day = n/days_since_first_death,
                 day_per_death = 1/death_per_day) %>%
-  dplyr::mutate(demo_indicator = ifelse(demo_indicator == "85 years and over", "85+", demo_indicator),
-                demo_indicator = gsub(" years", "", demo_indicator))
+  dplyr::mutate(demo_indicator = gsub(" years", "", demo_indicator))
 
 
 age <- df %>%
-  dplyr::filter(demographic == "age") %>% 
-  dplyr::slice(1:10) %>%
+  dplyr::filter(demographic == "age" & demo_indicator != "Total") %>% 
   dplyr::mutate(log_one_in_x = log(one_in_x),
-                x = seq(50, 500, 50)) %>%
-  dplyr::select(-FIPS)
+                x = seq(50, 300, 50))
 
-jsonlite::write_json(age, "./data/age_data.json")
+jsonlite::write_json(age, "../data/age_data.json")
 
 deaths <-lapply(unique(age$demo_indicator), function(x) {
   
