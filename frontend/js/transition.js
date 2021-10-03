@@ -182,6 +182,7 @@ function animData(containerId, color) {
 
 function buildViz(containerId) {
 
+    //https://coolors.co/978ba7-6cb2ab-9dab5f-fdd55d-f48b01-f37653
     var color = ["#978ba7", "#6cb2ab", "#9dab5f", "#fdd55d", "#f48b01", "#f37653"];
 
     animData(containerId, color);
