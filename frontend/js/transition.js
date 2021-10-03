@@ -182,7 +182,7 @@ function animData(containerId, color) {
 
 function buildViz(containerId) {
 
-    var color = ["#78698c", "#5c8184", "#74947d", "#8ba776","#b0bb7e",          "#fee085", "#fec172", "#fda572", "#f69479", "#f58566"];
+    var color = ["#978ba7", "#6cb2ab", "#9dab5f", "#fdd55d", "#f48b01", "#f37653"];
 
     animData(containerId, color);
 }
