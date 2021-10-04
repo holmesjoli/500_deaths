@@ -96,34 +96,49 @@ span {
     position: absolute;
 }
 
+.floatybox {
+    opacity: 0;
+    display: inline;
+    animation: fade-in 7s;
+}
+
 .anim-text1 {
     animation-fill-mode: forwards;
+    z-index: 0;
 }
 
 .anim-text2 {
+    z-index: 1;
     animation-delay: 7s;
 }
 
-.anim-text3 {
+.anim-text2-1 {
+    animation-delay: 7s;
+}
+
+.anim-text2-2 {
     animation-delay: 10s;
 }
 
-.anim-text4 {
+.anim-text2-3 {
     animation-delay: 13s;
 }
 
 .anim-text5 {
     animation-delay: 22s;
+    z-index: 2;
 }
 
 .anim-text6 {
     animation-delay: 29s;
+    z-index: 3;
 }
 
 .anim-text7 {
     animation-delay: 36s;
     animation-fill-mode: forwards;
     visibility: visible;
+    z-index: 4;
 }
 
 .stack-top {
