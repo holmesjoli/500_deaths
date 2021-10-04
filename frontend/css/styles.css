@@ -120,19 +120,19 @@ span {
 }
 
 .anim-text5 {
-    animation-delay: 22s;
+    animation-delay: 18s;
     z-index: 2;
     position: absolute;
 }
 
 .anim-text6 {
-    animation-delay: 29s;
+    animation-delay: 25s;
     z-index: 3;
     position: absolute;
 }
 
 .anim-text7 {
-    animation-delay: 36s;
+    animation-delay: 32s;
     animation-fill-mode: forwards;
     visibility: visible;
     z-index: 4;
