@@ -101,12 +101,6 @@ span {
     position: absolute;
 }
 
-.floatybox {
-    opacity: 0;
-    display: inline;
-    animation: fade-in 7s;
-}
-
 .anim-text2 {
     z-index: 1;
     animation-delay: 7s;
