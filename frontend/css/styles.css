@@ -26,11 +26,7 @@ span {
     font-size: 14pt;
     line-height: 16pt;
 }
-
-span {
-    padding-left: 8px;
-    padding-left: 8px;
-} */
+*/
 
 @keyframes fade-in {
     0% { opacity: 0; }
