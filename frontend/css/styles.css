@@ -93,6 +93,11 @@ span {
     opacity: 0;
     display: inline;
     animation: fade-in 7s;
+}
+
+.anim-text1 {
+    animation-fill-mode: forwards;
+    z-index: 0;
     position: absolute;
 }
 
@@ -102,14 +107,10 @@ span {
     animation: fade-in 7s;
 }
 
-.anim-text1 {
-    animation-fill-mode: forwards;
-    z-index: 0;
-}
-
 .anim-text2 {
     z-index: 1;
     animation-delay: 7s;
+    position: absolute;
 }
 
 .anim-text2-1 {
@@ -117,21 +118,24 @@ span {
 }
 
 .anim-text2-2 {
-    animation-delay: 10s;
+    animation-delay: 9s;
 }
 
 .anim-text2-3 {
-    animation-delay: 13s;
+    animation-delay: 11s;
+    position: absolute;
 }
 
 .anim-text5 {
     animation-delay: 22s;
     z-index: 2;
+    position: absolute;
 }
 
 .anim-text6 {
     animation-delay: 29s;
     z-index: 3;
+    position: absolute;
 }
 
 .anim-text7 {
@@ -139,6 +143,7 @@ span {
     animation-fill-mode: forwards;
     visibility: visible;
     z-index: 4;
+    position: absolute;
 }
 
 .stack-top {
