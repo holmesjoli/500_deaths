@@ -39,7 +39,7 @@ df <- one_in_x_est.age() %>%
 age <- df %>%
   dplyr::filter(demographic == "age" & demo_indicator != "Total") %>% 
   dplyr::select(demo_indicator, millisec_per_death, n) %>%
-  dplyr::mutate(x = seq(50, 300, 50))
+  dplyr::mutate(x = seq(1, 6, 1))
 
 
 jsonlite::write_json(age, "../data/age_data2.json")
