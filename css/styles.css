@@ -103,7 +103,7 @@ circle {
 .x-axis > path,
 .y-axis > path {
     stroke: #ffffff;
-    opacity: .5;
+    opacity: .10;
 }
 
 .x-axis > g > text {
