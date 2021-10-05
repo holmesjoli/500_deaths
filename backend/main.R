@@ -88,7 +88,50 @@ names <- names %>%
 
 df <- data.frame(names = names,
            summary = summ,
-           ages = ages
-           #,
-          # img_urls = img_urls
-          ) 
+           age2 = ages,
+           age = as.numeric(ages)) %>%
+  dplyr::mutate(demo_indicator = dplyr::case_when(age >= 75 ~ "75+",
+                                                  age < 75 & age >= 65 ~ "65-74",
+                                                  age < 65 & age >= 50 ~ "50-64",
+                                                  age < 50 & age >= 30 ~ "30-49",
+                                                  age < 30 & age >= 18 ~ "18-29",
+                                                  age < 18 ~ "0-17"),
+                summary = gsub("\n", "", summary),
+                summary = stringr::str_trim(summary, "both"),
+                person_id = seq(1, dplyr::n(), 1),
+                person_id = person_id - 1) %>%
+  dplyr::filter(!is.na(age))
+
+freq <- deaths2 %>%
+  dplyr::group_by(demo_indicator) %>%
+  dplyr::tally()
+
+ids <- sapply(unique(df$demo_indicator), function(x) {
+  df %>%
+    dplyr::filter(demo_indicator == x) %>%
+    dplyr::pull(person_id)
+}, USE.NAMES = TRUE, simplify = F)
+
+pull <- lapply(names(ids), function(x) {
+  n <- freq %>%
+    dplyr::filter(demo_indicator == x) %>%
+    dplyr::pull(n)
+  
+  choices <- ids[[x]]
+  
+  selection <- sample(choices, n, replace = F)
+
+  data.frame(person_id = selection,
+             demo_indicator = rep(x, n),
+             stringsAsFactors = F) %>%
+    dplyr::mutate(id = seq(1, n, 1),
+                  id = id - 1)
+}) %>% dplyr::bind_rows()
+
+deaths3 <- deaths2 %>%
+  dplyr::left_join(pull) %>%
+  dplyr::left_join(df)
+
+jsonlite::write_json(deaths3, "../data/age_deaths_not_summarized.json")
+
+
