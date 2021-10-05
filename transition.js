@@ -207,7 +207,7 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-var delay = 0;
+var delay = 32000;
 
 setTimeout(function() {
     buildTimer();

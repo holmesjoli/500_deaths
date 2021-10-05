@@ -87,7 +87,7 @@ body {
     opacity: 0;
     display: inline;
     animation: fade-in-stay 3s;
-    /* animation-delay: 32s; */
+    animation-delay: 32s;
     z-index: 4;
     animation-fill-mode: forwards;
     padding-top: 10px; 
@@ -103,7 +103,7 @@ circle {
 .x-axis > path,
 .y-axis > path {
     stroke: #ffffff;
-    opacity: .10;
+    opacity: .25;
 }
 
 .x-axis > g > text {
