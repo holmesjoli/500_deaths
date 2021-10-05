@@ -38,24 +38,33 @@ df <- one_in_x_est.age() %>%
 
 age <- df %>%
   dplyr::filter(demographic == "age" & demo_indicator != "Total") %>% 
-  dplyr::mutate(log_one_in_x = log(one_in_x),
-                x = seq(50, 300, 50))
+  dplyr::select(demo_indicator, millisec_per_death, n) %>%
+  dplyr::mutate(x = seq(50, 300, 50))
 
-jsonlite::write_json(age, "../data/age_data.json")
+
+jsonlite::write_json(age, "../data/age_data2.json")
 
 deaths <-lapply(unique(age$demo_indicator), function(x) {
-  
-  n <- age %>% 
-    dplyr::filter(demo_indicator == x)
+
+  n <- age[age$demo_indicator == x, ]
 
   data.frame(demo_indicator = 1:n$n) %>%
     dplyr::mutate(demo_indicator = x,
-                  color = n$color,
                   millisec_per_death = n$millisec_per_death,
-                  log_one_in_x = n$log_one_in_x)
-}) %>% dplyr::bind_rows()
+                  x = n$x)
+}) %>% 
+  dplyr::bind_rows() 
 
-jsonlite::write_json(deaths, "./data/age_deaths_not_summarized.json")
+deaths2 <- deaths %>%
+  dplyr::group_by(demo_indicator) %>%
+  dplyr::mutate(id = seq(1, dplyr::n(), 1)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(id = id - 1) %>% 
+  dplyr::group_by(demo_indicator, id) %>%
+  dplyr::mutate(delay = millisec_per_death*id) %>% 
+  dplyr::filter(delay <= 3600000)
+
+jsonlite::write_json(deaths2, "../data/age_deaths_not_summarized.json")
   
 # nyt_obits <- xml2::read_html("https://www.nytimes.com/interactive/2020/obituaries/people-died-coronavirus-obituaries.html")
 #   
