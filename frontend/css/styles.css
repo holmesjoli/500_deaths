@@ -38,7 +38,7 @@ span {
     justify-content: center;
 }
 
-/* #timer {
+#timer {
     width: 125px;
     height: 125px;
     font-size: 20pt;
@@ -47,13 +47,6 @@ span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-#viz {
-    width: 100%;
-    height: 100%;
-    display: flex;
-	flex-direction: row;
 }
 
 /* Text animation styles */
@@ -117,10 +110,13 @@ span {
 }
 
 .anim-text7 {
-    animation: fade-in-stay 1s;
+    opacity: 0;
+    display: inline;
+    animation: fade-in-stay infinite;
     animation-delay: 32s;
     z-index: 4;
     position: absolute;
+    animation-fill-mode: forwards;  
 }
 
 /* D3 styles */
