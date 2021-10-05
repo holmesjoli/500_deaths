@@ -20,9 +20,9 @@ function buildTimer() {
 };
 
 
-function dimensions () {
-    var width = 600;
-    var height = 500;
+function dimensions (width = 600, height = 550) {
+    var width = width;
+    var height = height;
 
     var margin = {
         top: 50,
@@ -34,12 +34,16 @@ function dimensions () {
     // calculate dimensions without margins
     var innerWidth = width - margin.left - margin.right;
     var innerHeight = height - margin.top - margin.bottom;
+    var vizHeight = innerHeight*(2/3);
+    var textHeight = innerHeight*(5/6);
 
     return {
         width: width,
         height: height,
         innerWidth: innerWidth,
         innerHeight: innerHeight,
+        vizHeight: vizHeight,
+        textHeight: textHeight,
         margin: margin};
 }
 
@@ -85,7 +89,7 @@ function animData(containerId, color) {
                     return d.id;
                 })
             ])
-            .range([dims.innerHeight, 0]);
+            .range([dims.vizHeight, 0]);
 
         var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
 
@@ -134,6 +138,25 @@ function animData(containerId, color) {
             .style("fill", "grey");
             //.remove();
 
+        g.selectAll("names")
+            .data(data)
+            .enter()
+            .append("text")
+            .style("fill", "white")
+            .style('opacity', 0)
+            .style('font-family', "Farsan")
+            .style('font-size', 32) 
+            .transition()
+            .delay(function(d) {return d.delay2;})
+            .duration(4000)
+            .attr("x", dims.innerWidth/2)
+            .attr("y", dims.textHeight)
+            .text(function(d){return d.name_age;})
+            .style('opacity', 1)
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            .remove();
+
         var yAxis = d3.axisLeft(y).ticks(0);
 
         g
@@ -146,7 +169,7 @@ function animData(containerId, color) {
         g
             .append('g')
             .attr('class', 'x-axis')
-            .attr('transform', 'translate(0,' + dims.innerHeight + ')')
+            .attr('transform', 'translate(0,' + dims.vizHeight + ')')
             .call(xAxis);
 
         //glow
@@ -194,6 +217,7 @@ function animData(containerId, color) {
         .text(function(d){ return d.demo_indicator;})
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle");
+
     });
 }
 
