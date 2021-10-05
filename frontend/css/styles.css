@@ -21,17 +21,6 @@ body {
     justify-content: center;
 }
 
-#timer {
-    width: 125px;
-    height: 125px;
-    font-size: 20pt;
-    border: 3px #ffffff solid;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
 /* Text animation styles */
 
 @keyframes fade-in {
@@ -96,7 +85,7 @@ body {
     opacity: 0;
     display: inline;
     animation: fade-in-stay infinite;
-    animation-delay: 32s;
+    /* animation-delay: 32s; */
     z-index: 4;
     position: absolute;
     animation-fill-mode: forwards;  
@@ -108,7 +97,7 @@ circle {
 	opacity: 0.9;
 }
 
-.x-axis > g > line,
+.x-axis > g > line,s
 .x-axis > path,
 .y-axis > path {
     stroke: #ffffff;
@@ -116,4 +105,31 @@ circle {
 
 .x-axis > g > text {
     fill: #ffffff;
+}
+
+/* Flexbox example */
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+}
+
+.flex-container2 {
+    display: flex;
+    flex-direction: column;
+    max-width: 35%;
+    padding: 10px 20px;
+}
+
+#timer {
+    width: 125px;
+    height: 125px;
+    font-size: 20pt;
+    border: 3px #ffffff solid;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
 }
