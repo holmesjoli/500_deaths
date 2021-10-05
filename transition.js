@@ -113,7 +113,7 @@ function animData(containerId, color) {
         .append("circle")
             .attr("cy", 20)
             .attr("cx", 15)
-            .attr("r", 10)
+            .attr("r", 7)
             .attr("id", function(d){return d.demo_indicator})
             .style("fill", function(d) {
                 return colorScale(d.demo_indicator);
@@ -157,7 +157,7 @@ function animData(containerId, color) {
         var filter = defs.append("filter")
             .attr("id","glow");
         filter.append("feGaussianBlur")
-            .attr("stdDeviation","1")
+            .attr("stdDeviation",".5")
             .attr("result","coloredBlur");
         var feMerge = filter.append("feMerge");
         feMerge.append("feMergeNode")
