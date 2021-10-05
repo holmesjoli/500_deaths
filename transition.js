@@ -21,8 +21,8 @@ function buildTimer() {
 
 
 function dimensions () {
-    var width = 700;
-    var height = 450;
+    var width = 600;
+    var height = 500;
 
     var margin = {
         top: 50,
@@ -79,7 +79,12 @@ function animData(containerId, color) {
 
         var y = d3
             .scaleLinear()
-            .domain([dims.innerHeight, 0])
+            .domain([
+                0,
+                d3.max(data, function(d) {
+                    return d.id;
+                })
+            ])
             .range([dims.innerHeight, 0]);
 
         var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
@@ -108,7 +113,7 @@ function animData(containerId, color) {
         .append("circle")
             .attr("cy", 20)
             .attr("cx", 15)
-            .attr("r", 10)
+            .attr("r", 7)
             .attr("id", function(d){return d.demo_indicator})
             .style("fill", function(d) {
                 return colorScale(d.demo_indicator);
@@ -125,9 +130,9 @@ function animData(containerId, color) {
             .delay(function(d) {return d.delay;})
             .duration(function(d) {return d.millisec_per_death})
             .attr("cx", function(d) {return x(d.demo_indicator)})
-            .attr("cy", dims.innerHeight)
-            .style("fill", "grey")
-            .remove();
+            .attr("cy", function(d) {return y(d.id)})
+            .style("fill", "grey");
+            //.remove();
 
         var yAxis = d3.axisLeft(y).ticks(0);
 
@@ -152,7 +157,7 @@ function animData(containerId, color) {
         var filter = defs.append("filter")
             .attr("id","glow");
         filter.append("feGaussianBlur")
-            .attr("stdDeviation","1")
+            .attr("stdDeviation",".5")
             .attr("result","coloredBlur");
         var feMerge = filter.append("feMerge");
         feMerge.append("feMergeNode")
@@ -169,10 +174,10 @@ function animData(containerId, color) {
         .data(legenddata)
         .enter()
         .append("circle")
-        .attr("cx", dims.innerWidth - 50)
-        .attr("cy", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("cx", dims.innerWidth - 0)
+        .attr("cy", function(d,i) { return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 7)
-        .style("fill", function(d){ return colorScalelegend(d.demo_indicator)})
+        .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
         .style("stroke", function(d) {
             return colorScale(d.demo_indicator);
         })
@@ -183,7 +188,7 @@ function animData(containerId, color) {
         .data(legenddata)
         .enter()
         .append("text")
-        .attr("x", dims.innerWidth - 50 + 20)
+        .attr("x", dims.innerWidth - 0 + 20)
         .attr("y", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", "white")
         .text(function(d){ return d.demo_indicator;})
@@ -202,7 +207,7 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-var delay = 32001;
+var delay = 32000;
 
 setTimeout(function() {
     buildTimer();

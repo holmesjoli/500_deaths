@@ -103,7 +103,7 @@ circle {
 .x-axis > path,
 .y-axis > path {
     stroke: #ffffff;
-    opacity: .5;
+    opacity: .25;
 }
 
 .x-axis > g > text {
@@ -124,7 +124,7 @@ circle {
 .flex-container2 {
     display: flex;
     flex-direction: column;
-    max-width: 35%;
+    max-width: 40%;
     padding: 10px 20px;
 }
 
