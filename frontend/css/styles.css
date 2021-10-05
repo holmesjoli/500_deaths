@@ -30,6 +30,8 @@ body {
 }
 
 @keyframes fade-in-stay {
+    0% { opacity: 0; }
+    50% {opacity: .5; }
     100% { opacity: 1; }
 }
 
@@ -84,7 +86,7 @@ body {
 .anim-text7 {
     opacity: 0;
     display: inline;
-    animation: fade-in-stay infinite;
+    animation: fade-in-stay 5s;
     animation-delay: 32s;
     z-index: 4;
     /* position: absolute; */
