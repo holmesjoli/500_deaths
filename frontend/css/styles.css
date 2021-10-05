@@ -16,23 +16,6 @@ body {
     color: white;
 }
 
-/* p,
-span {
-    font-size: 200%;
-    line-height: 60pt;
-} */
-
-/* #r1-elem2  {
-    font-size: 14pt;
-    line-height: 16pt;
-}
-*/
-
-/* #container {
-    width: 100%;
-    height: 100%;
-} */
-
 #text {
     display: flex;
     justify-content: center;
