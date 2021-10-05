@@ -85,9 +85,9 @@ body {
     opacity: 0;
     display: inline;
     animation: fade-in-stay infinite;
-    /* animation-delay: 32s; */
+    animation-delay: 32s;
     z-index: 4;
-    position: absolute;
+    /* position: absolute; */
     animation-fill-mode: forwards;  
 }
 
