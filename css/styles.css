@@ -89,7 +89,6 @@ body {
     animation: fade-in-stay 5s;
     animation-delay: 32s;
     z-index: 4;
-    /* position: absolute; */
     animation-fill-mode: forwards;  
 }
 
@@ -99,16 +98,20 @@ circle {
 	opacity: 0.9;
 }
 
-.x-axis > g > line,s
+.x-axis > g > line,
 .x-axis > path,
 .y-axis > path {
     stroke: #ffffff;
+    opacity: .5;
 }
 
 .x-axis > g > text {
     fill: #ffffff;
 }
 
+.tick {
+    opacity: 0;
+}
 /* Flexbox example */
 
 .flex-container {
