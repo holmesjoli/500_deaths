@@ -21,7 +21,7 @@ function buildTimer() {
 
 
 function dimensions () {
-    var width = 960;
+    var width = 700;
     var height = 450;
 
     var margin = {
