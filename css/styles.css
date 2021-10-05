@@ -16,6 +16,10 @@ body {
     color: white;
 }
 
+.source {
+    font-size: 8pt;
+}
+
 #text {
     display: flex;
     justify-content: center;
@@ -138,4 +142,8 @@ circle {
     align-items: center;
     justify-content: center;
     margin: 20px;
+}
+
+a:visited {
+    color: #ffffff;
 }
