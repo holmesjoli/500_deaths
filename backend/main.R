@@ -59,12 +59,15 @@ deaths2 <- deaths %>%
   dplyr::group_by(demo_indicator) %>%
   dplyr::mutate(id = seq(1, dplyr::n(), 1)) %>%
   dplyr::ungroup() %>%
-  dplyr::mutate(id = id - 1) %>% 
-  dplyr::group_by(demo_indicator, id) %>%
-  dplyr::mutate(delay = millisec_per_death*id) %>% 
-  dplyr::filter(delay <= 3600000)
+  dplyr::mutate(id2 = id,
+                id = id - 1) %>% 
+  dplyr::group_by(demo_indicator, id, id2) %>%
+  dplyr::mutate(delay = millisec_per_death*id,
+                delay2 = millisec_per_death*id2) %>% 
+  dplyr::filter(delay <= 3600000) %>%
+  dplyr::select(-id2)
 
-jsonlite::write_json(deaths2, "../data/age_deaths_not_summarized.json")
+# jsonlite::write_json(deaths2, "../data/age_deaths_not_summarized.json")
   
 nyt_obits <- xml2::read_html("https://www.nytimes.com/interactive/2020/obituaries/people-died-coronavirus-obituaries.html")
 
@@ -86,7 +89,7 @@ ages <- names %>%
 names <- names %>%
   gsub(",.*", "", .)
 
-df <- data.frame(names = names,
+df <- data.frame(name = names,
            summary = summ,
            age2 = ages,
            age = as.numeric(ages)) %>%
@@ -99,7 +102,8 @@ df <- data.frame(names = names,
                 summary = gsub("\n", "", summary),
                 summary = stringr::str_trim(summary, "both"),
                 person_id = seq(1, dplyr::n(), 1),
-                person_id = person_id - 1) %>%
+                person_id = person_id - 1,
+                name_age = paste(name, age, sep = ", ")) %>%
   dplyr::filter(!is.na(age))
 
 freq <- deaths2 %>%
@@ -133,5 +137,4 @@ deaths3 <- deaths2 %>%
   dplyr::left_join(df)
 
 jsonlite::write_json(deaths3, "../data/age_deaths_not_summarized.json")
-
 
