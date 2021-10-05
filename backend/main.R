@@ -66,29 +66,29 @@ deaths2 <- deaths %>%
 
 jsonlite::write_json(deaths2, "../data/age_deaths_not_summarized.json")
   
-# nyt_obits <- xml2::read_html("https://www.nytimes.com/interactive/2020/obituaries/people-died-coronavirus-obituaries.html")
-#   
-# img_urls <- nyt_obits %>%  
-#   rvest::html_nodes("img") %>%
-#   rvest::html_attrs()
-# 
-# names <- nyt_obits %>% 
-#   rvest::html_nodes("h1.g-name") %>% 
-#   rvest::html_text()
-# 
-# summ <- nyt_obits %>%
-#   rvest::html_nodes("div.g-summ") %>% 
-#   rvest::html_text()
-# 
-# ages <- names %>% 
-#   gsub(".*, ", "", .)
-# 
-# names <- names %>%
-#   gsub(",.*", "", .)
+nyt_obits <- xml2::read_html("https://www.nytimes.com/interactive/2020/obituaries/people-died-coronavirus-obituaries.html")
 
-# df <- data.frame(names = names,
-#            summary = summ,
-#            ages = ages
-#            #,
-#           # img_urls = img_urls
-#           )
+img_urls <- nyt_obits %>%
+  rvest::html_nodes("img") %>%
+  rvest::html_attrs()
+
+names <- nyt_obits %>%
+  rvest::html_nodes("h1.g-name") %>%
+  rvest::html_text()
+
+summ <- nyt_obits %>%
+  rvest::html_nodes("div.g-summ") %>%
+  rvest::html_text()
+
+ages <- names %>%
+  gsub(".*, ", "", .)
+
+names <- names %>%
+  gsub(",.*", "", .)
+
+df <- data.frame(names = names,
+           summary = summ,
+           ages = ages
+           #,
+          # img_urls = img_urls
+          ) 
