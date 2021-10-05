@@ -9,6 +9,5 @@ renv/local
 renv/staging
 
 data/*.xlsx
-data/
 .Rproj.user
 .vscode
