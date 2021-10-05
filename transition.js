@@ -58,7 +58,7 @@ function animData(containerId, color) {
         .append('g')
         .attr('transform', 'translate(' + dims.margin.left + ',' + dims.margin.top + ')');
 
-    d3.json('data/age_data.json', function(error, data) {
+    d3.json('data/age_deaths_not_summarized.json', function(error, data) {
         // handle read errors
         if (error) {
             console.error('failed to read data');
@@ -82,9 +82,20 @@ function animData(containerId, color) {
             .domain([dims.innerHeight, 0])
             .range([dims.innerHeight, 0]);
 
+        var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
+
+        console.log(legenddata);
+
         var colorScale = d3
             .scaleOrdinal()
             .domain(data.map(function(d) {
+                return d.demo_indicator;
+            }))
+            .range(color);
+
+        var colorScalelegend = d3
+            .scaleOrdinal()
+            .domain(legenddata.map(function(d) {
                 return d.demo_indicator;
             }))
             .range(color);
@@ -111,6 +122,7 @@ function animData(containerId, color) {
         g.selectAll("circle")
             .data(data)
             .transition()
+            .delay(function(d) {return d.delay;})
             .duration(function(d) {return d.millisec_per_death})
             .attr("cx", function(d) {return x(d.demo_indicator)})
             .attr("cy", dims.innerHeight)
@@ -154,13 +166,13 @@ function animData(containerId, color) {
 
         // Add one dot in the legend for each name.
         svg.selectAll("legend")
-        .data(data)
+        .data(legenddata)
         .enter()
         .append("circle")
         .attr("cx", dims.innerWidth - 50)
         .attr("cy", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 7)
-        .style("fill", function(d){ return colorScale(d.demo_indicator)})
+        .style("fill", function(d){ return colorScalelegend(d.demo_indicator)})
         .style("stroke", function(d) {
             return colorScale(d.demo_indicator);
         })
@@ -168,13 +180,13 @@ function animData(containerId, color) {
 
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
-        .data(data)
+        .data(legenddata)
         .enter()
         .append("text")
         .attr("x", dims.innerWidth - 50 + 20)
         .attr("y", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", "white")
-        .text(function(d){ return d.demo_indicator})
+        .text(function(d){ return d.demo_indicator;})
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle");
     });
