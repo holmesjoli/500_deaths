@@ -58,7 +58,7 @@ function animData(containerId, color) {
         .append('g')
         .attr('transform', 'translate(' + dims.margin.left + ',' + dims.margin.top + ')');
 
-    d3.json('./data/age_data.json', function(error, data) {
+    d3.json('data/age_data.json', function(error, data) {
         // handle read errors
         if (error) {
             console.error('failed to read data');
