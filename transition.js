@@ -20,7 +20,7 @@ function buildTimer() {
 };
 
 
-function dimensions (width = 735, height = 470) {
+function dimensions (width = 735, height = 440) {
     var width = width;
     var height = height;
 
