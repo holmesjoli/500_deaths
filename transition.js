@@ -204,7 +204,7 @@ function animData(containerId, color) {
         .data(legenddata)
         .enter()
         .append("circle")
-        .attr("cx", 55)
+        .attr("cx", 90)
         .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 7)
         .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
@@ -218,11 +218,11 @@ function animData(containerId, color) {
         .data(legenddata)
         .enter()
         .append("text")
-        .attr("x", 70)
+        .attr("x", 30)
         .attr("y", function(d){return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", "white")
         .text(function(d){ return d.demo_indicator;})
-        .attr("text-anchor", "left")
+        //.attr("text-anchor", "right")
         .style("alignment-baseline", "middle");
 
     });
