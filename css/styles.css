@@ -147,3 +147,9 @@ circle {
 a:visited {
     color: #ffffff;
 }
+
+.underline {
+    text-decoration: underline solid white;
+    text-underline-offset: .23em;
+    text-decoration-thickness: 0.07em;
+}
