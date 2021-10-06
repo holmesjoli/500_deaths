@@ -60,12 +60,13 @@ deaths2 <- deaths %>%
   dplyr::mutate(id = seq(1, dplyr::n(), 1)) %>%
   dplyr::ungroup() %>%
   dplyr::mutate(id2 = id,
-                id = id - 1) %>% 
-  dplyr::group_by(demo_indicator, id, id2) %>%
+                id = id - 1,
+                id3 = id2 + 1) %>% 
+  dplyr::group_by(demo_indicator, id, id2, id3) %>%
   dplyr::mutate(delay = millisec_per_death*id,
-                delay2 = millisec_per_death*id2) %>% 
-  dplyr::filter(delay <= 3600000) %>%
-  dplyr::select(-id2)
+                delay2 = millisec_per_death*id2,
+                delay3 = millisec_per_death*id3) %>% 
+  dplyr::filter(delay <= 3600000)
 
 # jsonlite::write_json(deaths2, "../data/age_deaths_not_summarized.json")
   
