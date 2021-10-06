@@ -94,7 +94,7 @@ body {
     /* animation-delay: 32s; */
     z-index: 4;
     animation-fill-mode: forwards;
-    padding-top: 10px; 
+    padding-bottom: 10px; 
 }
 
 /* D3 styles */
@@ -103,20 +103,11 @@ circle {
 	opacity: 0.9;
 }
 
-.x-axis > g > line,
-.x-axis > path,
-.y-axis > path {
+line {
     stroke: #ffffff;
     opacity: .25;
 }
 
-.x-axis > g > text {
-    fill: #ffffff;
-}
-
-.tick {
-    opacity: 0;
-}
 /* Flexbox example */
 
 .flex-container {
@@ -133,15 +124,15 @@ circle {
 }
 
 #timer {
-    width: 125px;
-    height: 125px;
-    font-size: 20pt;
+    width: 100px;
+    height: 100px;
+    font-size: 18pt;
     border: 3px #ffffff solid;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    margin: 10px 20px 20px 20px;
 }
 
 a:visited {
@@ -154,7 +145,8 @@ a:visited {
     text-decoration-thickness: 0.07em;
 }
 
-.title{
+.title {
     font-size: 24pt;
-    padding: 20px;
+    margin-top: 20px;
+    margin-left: 35px;
 }

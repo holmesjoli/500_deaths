@@ -20,7 +20,7 @@ function buildTimer() {
 };
 
 
-function dimensions (width = 600, height = 550) {
+function dimensions (width = 750, height = 400) {
     var width = width;
     var height = height;
 
@@ -85,7 +85,7 @@ function animData(containerId, color) {
             .domain(data.map(function(d) {
                 return d.demo_indicator;
             }))
-            .range([dims.vizHeight, 0]);
+            .range([dims.innerHeight, 0]);
 
         var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
 
@@ -105,21 +105,20 @@ function animData(containerId, color) {
             }))
             .range(color);
 
-        // console.log(y.domain(), y.range());
-
         g.selectAll("mycircles")
         .data(data)
         .enter()
         .append("circle")
             .attr("cx", 90)
-            .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
             .attr("r", 7)
             .attr("id", function(d) {return d.demo_indicator})
             .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
             .style("stroke", function(d) {
                 return colorScale(d.demo_indicator)
             })
-            .style("stroke-opacity", .7);
+            .style("stroke-opacity", .7)
+            .style("stroke-width", 3);
 
         g.selectAll("circle")
             .data(data)
@@ -149,26 +148,11 @@ function animData(containerId, color) {
         //     .style("alignment-baseline", "middle")
         //     .remove();
 
-        var yAxis = d3.axisLeft(y).ticks(0);
-
-        g
-            .append('g')
-            .attr('class', 'y-axis')
-            .call(yAxis);
-
-        // var xAxis = d3.axisBottom(x);
-
-        // g
-        //     .append('g')
-        //     .attr('class', 'x-axis')
-        //     .attr('transform', 'translate(0,' + dims.vizHeight + ')')
-        //     .call(xAxis);
-
         // //glow
         // //Container for the gradients
         // var defs = svg.append("defs");
 
-        // //Filter for the outside glow
+        //Filter for the outside glow
         // var filter = defs.append("filter")
         //     .attr("id","glow");
         // filter.append("feGaussianBlur")
@@ -185,18 +169,18 @@ function animData(containerId, color) {
         // .style("filter", "url(#glow)");
 
         // Add one dot in the legend for each name.
-        svg.selectAll("legend")
-        .data(legenddata)
-        .enter()
-        .append("circle")
-        .attr("cx", 90)
-        .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
-        .attr("r", 7)
-        .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
-        .style("stroke", function(d) {
-            return colorScale(d.demo_indicator);
-        })
-        .style("stroke-opacity", .7);
+        // svg.selectAll("legend")
+        // .data(legenddata)
+        // .enter()
+        // .append("circle")
+        // .attr("cx", 90)
+        // .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
+        // .attr("r", 7)
+        // .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
+        // .style("stroke", function(d) {
+        //     return colorScale(d.demo_indicator);
+        // })
+        // .style("stroke-opacity", .7);
 
       //  Add one dot in the legend for each name.
         svg.selectAll("mylabels")
@@ -204,12 +188,29 @@ function animData(containerId, color) {
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", function(d){return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("y", function(d){return y2(d.demo_indicator) + 15})
         .style("fill", "white")
-        .text(function(d){ return d.demo_indicator;})
-        //.attr("text-anchor", "right")
+        .text(function(d){return d.demo_indicator;})
+        .attr("text-anchor", "right")
         .style("alignment-baseline", "middle");
 
+        svg
+        .append('line')
+        .attr("x1", 75)
+        .attr("x2", 75)
+        .attr("y1", 0)
+        .attr("y2", dims.innerHeight)
+        .attr("stroke", "white")
+        .attr("stroke-opacity", 1);
+
+        svg
+        .append('line')
+        .attr("x1", dims.innerWidth)
+        .attr("x2", dims.innerWidth)
+        .attr("y1", 0)
+        .attr("y2", dims.innerHeight)
+        .attr("stroke", "white")
+        .attr("stroke-opacity", 1);
     });
 }
 
