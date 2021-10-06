@@ -59,8 +59,8 @@ function animData(containerId, color) {
 
     // create inner group element
     var g = svg
-        .append('g')
-        .attr('transform', 'translate(' + dims.margin.left + ',' + dims.margin.top + ')');
+        .append('g');
+        // .attr('transform', 'translate(' + dims.margin.left + ',' + dims.margin.top + ')');
 
     d3.json('data/age_deaths_not_summarized.json', function(error, data) {
         // handle read errors
@@ -71,25 +71,14 @@ function animData(containerId, color) {
 
         console.log('data', data);
 
-        // scales
-        var x = d3
-            .scaleBand()
-            .domain(
-                data.map(function(d) {
-                    return d.demo_indicator;
-                })
-            )
-            .range([0, dims.innerWidth]);
-
-        var y = d3
-            .scaleLinear()
-            .domain([
-                0,
-                d3.max(data, function(d) {
-                    return d.id;
-                })
-            ])
-            .range([dims.vizHeight, 0]);
+        var x2 = d3.scaleLinear()
+                .domain([
+                    0,
+                    d3.max(data, function(d) {
+                        return d.id;
+                    })
+                ])
+                .range([dims.innerWidth, 100]);
 
         var y2 = d3
             .scaleBand()
@@ -118,32 +107,28 @@ function animData(containerId, color) {
 
         // console.log(y.domain(), y.range());
 
-        // g.selectAll("mycircles")
-        // .data(data)
-        // .enter()
-        // .append("circle")
-        //     .attr("cy", 20)
-        //     .attr("cx", 15)
-        //     .attr("r", 7)
-        //     .attr("id", function(d){return d.demo_indicator})
-        //     .style("fill", function(d) {
-        //         return colorScale(d.demo_indicator);
-        //     })
-        //     .style("stroke", function(d) {
-        //         return colorScale(d.demo_indicator);
-        //     })
-        //     .style("stroke-opacity", .7)
-        //     .style("stroke-width", 3);
+        g.selectAll("mycircles")
+        .data(data)
+        .enter()
+        .append("circle")
+            .attr("cx", 90)
+            .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("r", 7)
+            .attr("id", function(d) {return d.demo_indicator})
+            .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
+            .style("stroke", function(d) {
+                return colorScale(d.demo_indicator)
+            })
+            .style("stroke-opacity", .7);
 
-        // g.selectAll("circle")
-        //     .data(data)
-        //     .transition()
-        //     .delay(function(d) {return d.delay;})
-        //     .duration(function(d) {return d.millisec_per_death})
-        //     .attr("cx", function(d) {return x(d.demo_indicator)})
-        //     .attr("cy", function(d) {return y(d.id)})
-        //     .style("fill", "grey");
-        //     //.remove();
+        g.selectAll("circle")
+            .data(data)
+            .transition()
+            .delay(function(d) {return d.delay;})
+            .duration(function(d) {return d.millisec_per_death})
+            .attr("cx", function(d) {return x2(d.id)})
+            .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
+            .style("fill", "grey");
 
         // g.selectAll("names")
         //     .data(data)
@@ -164,12 +149,12 @@ function animData(containerId, color) {
         //     .style("alignment-baseline", "middle")
         //     .remove();
 
-        // var yAxis = d3.axisLeft(y).ticks(0);
+        var yAxis = d3.axisLeft(y).ticks(0);
 
-        // g
-        //     .append('g')
-        //     .attr('class', 'y-axis')
-        //     .call(yAxis);
+        g
+            .append('g')
+            .attr('class', 'y-axis')
+            .call(yAxis);
 
         // var xAxis = d3.axisBottom(x);
 
