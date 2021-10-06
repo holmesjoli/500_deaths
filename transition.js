@@ -20,14 +20,14 @@ function buildTimer() {
 };
 
 
-function dimensions (width = 750, height = 400) {
+function dimensions (width = 750, height = 500) {
     var width = width;
     var height = height;
 
     var margin = {
-        top: 50,
+        top: 25,
         right: 50,
-        bottom: 50,
+        bottom: 5,
         left: 50
     };
 
@@ -35,7 +35,7 @@ function dimensions (width = 750, height = 400) {
     var innerWidth = width - margin.left - margin.right;
     var innerHeight = height - margin.top - margin.bottom;
     var vizHeight = innerHeight*(2/3);
-    var textHeight = innerHeight*(5/6);
+    var textHeight = innerHeight*(1/6);
 
     return {
         width: width,
@@ -80,12 +80,14 @@ function animData(containerId, color) {
                 ])
                 .range([dims.innerWidth, 100]);
 
+
+        var yStart = 125;
         var y2 = d3
             .scaleBand()
             .domain(data.map(function(d) {
                 return d.demo_indicator;
             }))
-            .range([dims.innerHeight, 0]);
+            .range([dims.innerHeight, yStart]);
 
         var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
 
@@ -113,7 +115,7 @@ function animData(containerId, color) {
             .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
             .attr("r", 7)
             .attr("id", function(d) {return d.demo_indicator})
-            .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
+            .style("fill", function(d) {return colorScalelegend(d.demo_indicator)})
             .style("stroke", function(d) {
                 return colorScale(d.demo_indicator)
             })
@@ -129,24 +131,23 @@ function animData(containerId, color) {
             .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
             .style("fill", "grey");
 
-        // g.selectAll("names")
-        //     .data(data)
-        //     .enter()
-        //     .append("text")
-        //     .style("fill", "white")
-        //     .style('opacity', 0)
-        //     .style('font-family', "Farsan")
-        //     .style('font-size', 32) 
-        //     .transition()
-        //     .delay(function(d) {return d.delay2;})
-        //     .duration(4000)
-        //     .attr("x", dims.innerWidth/2)
-        //     .attr("y", dims.textHeight)
-        //     .text(function(d){return d.name_age;})
-        //     .style('opacity', 1)
-        //     .attr("text-anchor", "left")
-        //     .style("alignment-baseline", "middle")
-        //     .remove();
+        g.selectAll("names")
+            .data(data)
+            .enter()
+            .append("text")
+            .style("fill", function(d) {return colorScale(d.demo_indicator)})
+            .style('opacity', 0)
+            .style('font-size', 20) 
+            .transition()
+            .delay(function(d) {return d.delay2 -4000;})
+            .duration(10000)
+            .attr("x", dims.innerWidth/3)
+            .attr("y", dims.textHeight)
+            .text(function(d){return d.name_age;})
+            .style('opacity', 1)
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            .remove();
 
         // //glow
         // //Container for the gradients
@@ -198,7 +199,7 @@ function animData(containerId, color) {
         .append('line')
         .attr("x1", 75)
         .attr("x2", 75)
-        .attr("y1", 0)
+        .attr("y1", yStart)
         .attr("y2", dims.innerHeight)
         .attr("stroke", "white")
         .attr("stroke-opacity", 1);
@@ -207,7 +208,7 @@ function animData(containerId, color) {
         .append('line')
         .attr("x1", dims.innerWidth)
         .attr("x2", dims.innerWidth)
-        .attr("y1", 0)
+        .attr("y1", yStart)
         .attr("y2", dims.innerHeight)
         .attr("stroke", "white")
         .attr("stroke-opacity", 1);
