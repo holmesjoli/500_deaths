@@ -128,7 +128,7 @@ circle {
 .flex-container2 {
     display: flex;
     flex-direction: column;
-    max-width: 40%;
+    max-width: 30%;
     padding: 10px 20px;
 }
 
