@@ -20,7 +20,7 @@ function buildTimer() {
 };
 
 
-function dimensions (width = 750, height = 500) {
+function dimensions (width = 735, height = 470) {
     var width = width;
     var height = height;
 
@@ -28,7 +28,7 @@ function dimensions (width = 750, height = 500) {
         top: 25,
         right: 50,
         bottom: 5,
-        left: 50
+        left: 0
     };
 
     // calculate dimensions without margins
@@ -81,7 +81,7 @@ function animData(containerId, color) {
                 .range([dims.innerWidth, 100]);
 
 
-        var yStart = 125;
+        var yStart = 130;
         var y2 = d3
             .scaleBand()
             .domain(data.map(function(d) {
