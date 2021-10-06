@@ -91,6 +91,13 @@ function animData(containerId, color) {
             ])
             .range([dims.vizHeight, 0]);
 
+        var y2 = d3
+            .scaleBand()
+            .domain(data.map(function(d) {
+                return d.demo_indicator;
+            }))
+            .range([dims.vizHeight, 0]);
+
         var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
 
         console.log(legenddata);
@@ -109,96 +116,96 @@ function animData(containerId, color) {
             }))
             .range(color);
 
-        console.log(y.domain(), y.range());
+        // console.log(y.domain(), y.range());
 
-        g.selectAll("mycircles")
-        .data(data)
-        .enter()
-        .append("circle")
-            .attr("cy", 20)
-            .attr("cx", 15)
-            .attr("r", 7)
-            .attr("id", function(d){return d.demo_indicator})
-            .style("fill", function(d) {
-                return colorScale(d.demo_indicator);
-            })
-            .style("stroke", function(d) {
-                return colorScale(d.demo_indicator);
-            })
-            .style("stroke-opacity", .7)
-            .style("stroke-width", 3);
+        // g.selectAll("mycircles")
+        // .data(data)
+        // .enter()
+        // .append("circle")
+        //     .attr("cy", 20)
+        //     .attr("cx", 15)
+        //     .attr("r", 7)
+        //     .attr("id", function(d){return d.demo_indicator})
+        //     .style("fill", function(d) {
+        //         return colorScale(d.demo_indicator);
+        //     })
+        //     .style("stroke", function(d) {
+        //         return colorScale(d.demo_indicator);
+        //     })
+        //     .style("stroke-opacity", .7)
+        //     .style("stroke-width", 3);
 
-        g.selectAll("circle")
-            .data(data)
-            .transition()
-            .delay(function(d) {return d.delay;})
-            .duration(function(d) {return d.millisec_per_death})
-            .attr("cx", function(d) {return x(d.demo_indicator)})
-            .attr("cy", function(d) {return y(d.id)})
-            .style("fill", "grey");
-            //.remove();
+        // g.selectAll("circle")
+        //     .data(data)
+        //     .transition()
+        //     .delay(function(d) {return d.delay;})
+        //     .duration(function(d) {return d.millisec_per_death})
+        //     .attr("cx", function(d) {return x(d.demo_indicator)})
+        //     .attr("cy", function(d) {return y(d.id)})
+        //     .style("fill", "grey");
+        //     //.remove();
 
-        g.selectAll("names")
-            .data(data)
-            .enter()
-            .append("text")
-            .style("fill", "white")
-            .style('opacity', 0)
-            .style('font-family', "Farsan")
-            .style('font-size', 32) 
-            .transition()
-            .delay(function(d) {return d.delay2;})
-            .duration(4000)
-            .attr("x", dims.innerWidth/2)
-            .attr("y", dims.textHeight)
-            .text(function(d){return d.name_age;})
-            .style('opacity', 1)
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            .remove();
+        // g.selectAll("names")
+        //     .data(data)
+        //     .enter()
+        //     .append("text")
+        //     .style("fill", "white")
+        //     .style('opacity', 0)
+        //     .style('font-family', "Farsan")
+        //     .style('font-size', 32) 
+        //     .transition()
+        //     .delay(function(d) {return d.delay2;})
+        //     .duration(4000)
+        //     .attr("x", dims.innerWidth/2)
+        //     .attr("y", dims.textHeight)
+        //     .text(function(d){return d.name_age;})
+        //     .style('opacity', 1)
+        //     .attr("text-anchor", "left")
+        //     .style("alignment-baseline", "middle")
+        //     .remove();
 
-        var yAxis = d3.axisLeft(y).ticks(0);
+        // var yAxis = d3.axisLeft(y).ticks(0);
 
-        g
-            .append('g')
-            .attr('class', 'y-axis')
-            .call(yAxis);
+        // g
+        //     .append('g')
+        //     .attr('class', 'y-axis')
+        //     .call(yAxis);
 
-        var xAxis = d3.axisBottom(x);
+        // var xAxis = d3.axisBottom(x);
 
-        g
-            .append('g')
-            .attr('class', 'x-axis')
-            .attr('transform', 'translate(0,' + dims.vizHeight + ')')
-            .call(xAxis);
+        // g
+        //     .append('g')
+        //     .attr('class', 'x-axis')
+        //     .attr('transform', 'translate(0,' + dims.vizHeight + ')')
+        //     .call(xAxis);
 
-        //glow
-        //Container for the gradients
-        var defs = svg.append("defs");
+        // //glow
+        // //Container for the gradients
+        // var defs = svg.append("defs");
 
-        //Filter for the outside glow
-        var filter = defs.append("filter")
-            .attr("id","glow");
-        filter.append("feGaussianBlur")
-            .attr("stdDeviation",".5")
-            .attr("result","coloredBlur");
-        var feMerge = filter.append("feMerge");
-        feMerge.append("feMergeNode")
-            .attr("in","coloredBlur");
-        feMerge.append("feMergeNode")
-            .attr("in","SourceGraphic");
+        // //Filter for the outside glow
+        // var filter = defs.append("filter")
+        //     .attr("id","glow");
+        // filter.append("feGaussianBlur")
+        //     .attr("stdDeviation",".5")
+        //     .attr("result","coloredBlur");
+        // var feMerge = filter.append("feMerge");
+        // feMerge.append("feMergeNode")
+        //     .attr("in","coloredBlur");
+        // feMerge.append("feMergeNode")
+        //     .attr("in","SourceGraphic");
 
-        //Apply to your element(s)
-        d3.selectAll("circle")
-        .style("filter", "url(#glow)");
+        // //Apply to your element(s)
+        // d3.selectAll("circle")
+        // .style("filter", "url(#glow)");
 
         // Add one dot in the legend for each name.
         svg.selectAll("legend")
         .data(legenddata)
         .enter()
         .append("circle")
-        .attr("cx", dims.innerWidth - 0)
-        .attr("cy", function(d,i) { return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("cx", 55)
+        .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 7)
         .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
         .style("stroke", function(d) {
@@ -206,13 +213,13 @@ function animData(containerId, color) {
         })
         .style("stroke-opacity", .7);
 
-        // Add one dot in the legend for each name.
+      //  Add one dot in the legend for each name.
         svg.selectAll("mylabels")
         .data(legenddata)
         .enter()
         .append("text")
-        .attr("x", dims.innerWidth - 0 + 20)
-        .attr("y", function(d,i){ return 50 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("x", 70)
+        .attr("y", function(d){return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", "white")
         .text(function(d){ return d.demo_indicator;})
         .attr("text-anchor", "left")
@@ -231,7 +238,8 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-var delay = 32000;
+//var delay = 32000;
+var delay = 0;
 
 setTimeout(function() {
     buildTimer();
