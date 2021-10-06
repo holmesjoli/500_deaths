@@ -91,7 +91,7 @@ body {
     opacity: 0;
     display: inline;
     animation: fade-in-stay 3s;
-    /* animation-delay: 32s; */
+    animation-delay: 32s;
     z-index: 4;
     animation-fill-mode: forwards;
     padding-bottom: 10px; 
@@ -146,12 +146,20 @@ a:visited {
     text-decoration-thickness: 0.07em;
 }
 
+.anim-text8 {
+    opacity: 0;
+    /* display: inline; */
+    animation: fade-in-stay 3s;
+    animation-delay: 32s;
+    z-index: 4;
+    animation-fill-mode: forwards;
+}
+
 .title {
     font-size: 24pt;
     margin-top: 20px;
     margin-left: 40px;
 }
-
 
 .subtitle {
     font-size: 18pt;
