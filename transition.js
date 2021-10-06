@@ -71,6 +71,8 @@ function animData(containerId, color) {
 
         console.log('data', data);
 
+        var xEnd = dims.innerWidth - 12;
+
         var x2 = d3.scaleLinear()
                 .domain([
                     0,
@@ -78,8 +80,7 @@ function animData(containerId, color) {
                         return d.id;
                     })
                 ])
-                .range([dims.innerWidth, 100]);
-
+                .range([xEnd, 100]);
 
         var yStart = 130;
         var y2 = d3
@@ -195,6 +196,38 @@ function animData(containerId, color) {
         .attr("text-anchor", "right")
         .style("alignment-baseline", "middle");
 
+        g.selectAll("mycount")
+        .data(data)
+        .enter()
+        .append("text")
+            .attr("class", "count")
+            .attr("x", dims.innerWidth)
+            .attr("y", function(d) {return y2(d.demo_indicator) + 15})
+            .attr("r", 7)
+            .style("fill", "white")
+            .style("opacity", 0);
+
+        g.selectAll(".count")
+            .data(data)
+            .transition()
+            .delay(function(d) {return d.delay;})
+            .duration(function(d) {return d.millisec_per_death*2})
+            .text(function(d) {return d.id2})
+            .style('opacity', 1)
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            .remove();
+
+        // g.selectAll("mycount")
+        // .data(data)
+        // .enter()
+        // .append("text")
+        // .attr("x", dims.innerWidth)
+        // .attr("y", function(d){return y2(d.demo_indicator)})
+        // .style("stroke", "white")
+        // .style("fill", "white")
+        // .style("opacity", 1);
+
         svg
         .append('line')
         .attr("x1", 75)
@@ -206,8 +239,8 @@ function animData(containerId, color) {
 
         svg
         .append('line')
-        .attr("x1", dims.innerWidth)
-        .attr("x2", dims.innerWidth)
+        .attr("x1", xEnd)
+        .attr("x2", xEnd)
         .attr("y1", yStart)
         .attr("y2", dims.innerHeight)
         .attr("stroke", "white")
@@ -225,8 +258,8 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-var delay = 32000;
-// var delay = 0;
+// var delay = 32000;
+var delay = 0;
 
 setTimeout(function() {
     buildTimer();
