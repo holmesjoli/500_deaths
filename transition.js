@@ -71,7 +71,7 @@ function animData(containerId, color) {
 
         console.log('data', data);
 
-        var xEnd = dims.innerWidth - 12;
+        var xEnd = dims.innerWidth - 15;
 
         var x2 = d3.scaleLinear()
                 .domain([
@@ -196,37 +196,34 @@ function animData(containerId, color) {
         .attr("text-anchor", "right")
         .style("alignment-baseline", "middle");
 
-        g.selectAll("mycount")
-        .data(data)
-        .enter()
-        .append("text")
-            .attr("class", "count")
-            .attr("x", dims.innerWidth)
-            .attr("y", function(d) {return y2(d.demo_indicator) + 15})
-            .attr("r", 7)
-            .style("fill", "white")
-            .style("opacity", 0);
-
-        g.selectAll(".count")
-            .data(data)
-            .transition()
-            .delay(function(d) {return d.delay;})
-            .duration(function(d) {return d.millisec_per_death*2})
-            .text(function(d) {return d.id2})
-            .style('opacity', 1)
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            .remove();
+        // g
+        // .append("text")
+        // .attr("class", "count-title") 
+        // .attr("x", dims.innerWidth - 30)
+        // .attr("y", 100)
+        // .style("fill", "white")
+        // .text("# of deaths");
 
         // g.selectAll("mycount")
-        // .data(data)
+        // .data(legenddata)
         // .enter()
         // .append("text")
-        // .attr("x", dims.innerWidth)
-        // .attr("y", function(d){return y2(d.demo_indicator)})
-        // .style("stroke", "white")
-        // .style("fill", "white")
-        // .style("opacity", 1);
+        //     .attr("class", "count")
+        //     .attr("x", dims.innerWidth)
+        //     .attr("y", function(d) {return y2(d.demo_indicator) + 20})
+        //     .style("fill", "white")
+        //     .text("0");
+
+        // g.selectAll(".count")
+        //     .data(data)
+        //     .transition()
+        //     .delay(function(d) {return d.delay2;})
+        //     .duration(function(d) {return d.millisec_per_deaths*2})
+        //     .text(function(d) {return d.id2})
+        //     .style('opacity', 1)
+        //     .attr("text-anchor", "left")
+        //     .style("alignment-baseline", "middle")
+        //     .remove();
 
         svg
         .append('line')
@@ -258,8 +255,8 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-// var delay = 32000;
-var delay = 0;
+var delay = 32000;
+// var delay = 0;
 
 setTimeout(function() {
     buildTimer();
