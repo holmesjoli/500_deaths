@@ -25,16 +25,17 @@
                     <p>The visualization runs for one hour. Each circle represents a person who died from COVID-19 in an average hour.</p>
                     <p>The duration of time it takes for a circle to travel from its starting place to its final resting place represents the frequency at which people from each age group have died throughout the pandemic. Older people represent a disproportionate number of deaths compared with younger people.</p>
                     <p>At the end of the average hour, 49 people have passed from COVID-19.</p>
-                <div class="anim-text7 source">
-                    <p>COVID-19 death data obtained from the <a href="https://data.cdc.gov/resource/9bhg-hcku.json">CDC</a>.</p>
-                    <p>Obituary data obtained from the <a href="https://www.nytimes.com/interactive/2020/obituaries/people-died-coronavirus-obituaries.html">New York Times</a>.</p>
-                </div>
                 <div class="timer-container">
                     <div id="timer" class="anim-text7"><label id="minutes">00</label>:<label id="seconds">00</label></div>
                 </div>
             </div>
-            <div id="viz" class="anim-text7 right">
-                <script src="js/transition.js"></script>
+            <div class="right anim-text7">
+                <div id="viz" class="anim-text7 right">
+                    <script src="js/transition.js"></script>
+                </div>
+                <div class="anim-text7 source" style="margin-left:30px">
+                    <p>COVID-19 death data obtained from the <a href="https://data.cdc.gov/resource/9bhg-hcku.json">Center for Disease Control and Prevention (CDC)</a></p>
+                </div>
             </div>
         </div>
     </body>

@@ -64,7 +64,7 @@ function unique_array(data, variable) {
 
 function animData(containerId, color) {
 
-    var dims = dimensions(height = window.innerHeight*.75);
+    var dims = dimensions(height = window.innerHeight*.70);
 
     const margin = {left: 10, right: 15, top: 10, bottom: 10};
 
@@ -146,24 +146,6 @@ function animData(containerId, color) {
             .attr("cx", function(d) {return x2(d.id)})
             .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
             .style("fill", "grey");
-
-        g.selectAll("names")
-            .data(data)
-            .enter()
-            .append("text")
-            .style("fill", function(d) {return colorScale(d.demo_indicator)})
-            .style('opacity', 0)
-            .style('font-size', 20) 
-            .transition()
-            .delay(function(d) {return d.delay2 -4000;})
-            .duration(10000)
-            .attr("x", dims.innerWidth/3)
-            .attr("y", dims.textHeight)
-            .text(function(d){return d.name_age;})
-            .style('opacity', 1)
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            .remove();
 
         // //glow
         // //Container for the gradients

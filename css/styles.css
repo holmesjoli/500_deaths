@@ -27,11 +27,13 @@ h1,
 h1 {
     margin: 20px 40px 10px 40px;
     font-size: 36pt;
+    text-align: center;
 }
 
 h2 {
     font-size: 18pt;
     margin: 5px 40px;
+    text-align: center;
 }
 
 p {
@@ -150,15 +152,15 @@ line {
 }
 
 #timer {
-    width: 150px;
-    height: 150px;
-    font-size: 32pt;
+    width: 200px;
+    height: 200px;
+    font-size: 40pt;
     border: 3px #ffffff solid;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    margin: 60px 20px 20px 20px;
 }
 
 a, a:visited {
