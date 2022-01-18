@@ -88,8 +88,13 @@ body {
 }
 
 .anim-text7 {
-    opacity: 0;
     display: inline;
+    padding-bottom: 10px; 
+}
+
+.anim-text7,
+.anim-text8 {
+    opacity: 0;
     animation: fade-in-stay 3s;
     animation-delay: 32s;
     z-index: 4;
@@ -144,15 +149,6 @@ a, a:visited {
     text-decoration: underline solid white;
     text-underline-offset: .23em;
     text-decoration-thickness: 0.07em;
-}
-
-.anim-text8 {
-    opacity: 0;
-    /* display: inline; */
-    animation: fade-in-stay 3s;
-    animation-delay: 32s;
-    z-index: 4;
-    animation-fill-mode: forwards;
 }
 
 .title {
