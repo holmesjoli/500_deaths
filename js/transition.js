@@ -66,6 +66,8 @@ function animData(containerId, color) {
 
     var dims = dimensions(height = window.innerHeight*.75);
 
+    const margin = {left: 10, right: 10, top: 10, bottom: 10};
+
     var svg = d3
         .select(containerId)
         .append('svg')
@@ -95,7 +97,7 @@ function animData(containerId, color) {
                 ])
                 .range([xEnd, 100]);
 
-        var yStart = 130;
+        var yStart = margin.top;
         var y2 = d3
             .scaleBand()
             .domain(data.map(function(d) {

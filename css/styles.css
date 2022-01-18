@@ -8,27 +8,35 @@ html, body {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12pt;
-    /* line-height: 18pt; */
     text-align: left;
     background-color: #4d6170;
     color: white;
+    font-family: proxima-nova,sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 h1 {
-    font-size: 24pt;
-    margin: 20px 40px;
+    font-size: 36pt;
+    margin: 20px 40px 10px 40px;
+    font-family: novecento-sans, sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
 h2 {
     font-size: 18pt;
-    font-style: italic;
     margin: 5px 40px;
 }
 
-.source {
-    font-size: 8pt;
+p {
+    font-size: 13pt;
+    line-height: 1.1em;
+}
+
+.source > p {
+    font-size: 10pt;
+    margin: 3px 0;
 }
 
 #text {
@@ -99,12 +107,6 @@ h2 {
 }
 
 .anim-text7 {
-    display: inline;
-    padding-bottom: 10px; 
-}
-
-.anim-text7,
-.anim-text8 {
     opacity: 0;
     animation: fade-in-stay 3s;
     animation-delay: 32s;
@@ -136,10 +138,16 @@ line {
     padding: 10px 20px;
 }
 
+.timer-container {
+    display: inline-block;
+    text-align: center;
+}
+
+
 #timer {
-    width: 100px;
-    height: 100px;
-    font-size: 18pt;
+    width: 150px;
+    height: 150px;
+    font-size: 26pt;
     border: 3px #ffffff solid;
     border-radius: 50%;
     display: inline-flex;
