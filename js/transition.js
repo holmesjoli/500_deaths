@@ -21,7 +21,7 @@ function buildTimer() {
 
 function dimensions (height = 440) {
     var height = height;
-    var width = height*1.3;
+    var width = height*2;
 
     var margin = {
         top: 25,
@@ -127,7 +127,7 @@ function animData(containerId, color) {
         .append("circle")
             .attr("cx", 90)
             .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
-            .attr("r", 7)
+            .attr("r", 10)
             .attr("id", function(d) {return d.demo_indicator})
             .style("fill", function(d) {return colorScalelegend(d.demo_indicator)})
             .style("stroke", function(d) {

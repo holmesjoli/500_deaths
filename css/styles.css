@@ -16,6 +16,17 @@ body {
     color: white;
 }
 
+h1 {
+    font-size: 24pt;
+    margin: 20px 40px;
+}
+
+h2 {
+    font-size: 18pt;
+    font-style: italic;
+    margin: 5px 40px;
+}
+
 .source {
     font-size: 8pt;
 }
@@ -99,7 +110,6 @@ body {
     animation-delay: 32s;
     z-index: 4;
     animation-fill-mode: forwards;
-    padding-bottom: 10px; 
 }
 
 /* D3 styles */
@@ -112,8 +122,6 @@ line {
     stroke: #ffffff;
     opacity: .25;
 }
-
-/* Flexbox example */
 
 .flex-container {
     display: flex;
@@ -149,17 +157,4 @@ a, a:visited {
     text-decoration: underline solid white;
     text-underline-offset: .23em;
     text-decoration-thickness: 0.07em;
-}
-
-.title {
-    font-size: 24pt;
-    margin-top: 20px;
-    margin-left: 40px;
-}
-
-.subtitle {
-    font-size: 18pt;
-    font-style: italic;
-    margin-top: 5px;
-    margin-left: 40px;
 }
