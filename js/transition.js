@@ -19,10 +19,9 @@ function buildTimer() {
     setInterval(setTime, 1000);
 };
 
-
-function dimensions (width = 735, height = 440) {
-    var width = width;
+function dimensions (height = 440) {
     var height = height;
+    var width = height*1.3;
 
     var margin = {
         top: 25,
@@ -47,9 +46,25 @@ function dimensions (width = 735, height = 440) {
         margin: margin};
 }
 
+//Title Unique Array
+//Description the unique value of a variable from the data
+//Return array
+function unique_array(data, variable) {
+
+    const u = [];
+
+    data.forEach(function(d) {
+        if (u.indexOf(d[variable]) === -1) {
+            u.push(d[variable]);
+        }
+    });
+
+    return u;
+};
+
 function animData(containerId, color) {
 
-    var dims = dimensions();
+    var dims = dimensions(height = window.innerHeight*.75);
 
     var svg = d3
         .select(containerId)
@@ -60,10 +75,8 @@ function animData(containerId, color) {
     // create inner group element
     var g = svg
         .append('g');
-        // .attr('transform', 'translate(' + dims.margin.left + ',' + dims.margin.top + ')');
 
     d3.json('data/age_deaths_not_summarized.json', function(error, data) {
-        // handle read errors
         if (error) {
             console.error('failed to read data');
             return;
