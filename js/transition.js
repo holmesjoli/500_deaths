@@ -21,7 +21,7 @@ function buildTimer() {
 
 function dimensions (height = 440) {
     var height = height;
-    var width = height*2;
+    var width = height*1.70;
 
     var margin = {
         top: 25,
@@ -66,7 +66,7 @@ function animData(containerId, color) {
 
     var dims = dimensions(height = window.innerHeight*.75);
 
-    const margin = {left: 10, right: 10, top: 10, bottom: 10};
+    const margin = {left: 10, right: 15, top: 10, bottom: 10};
 
     var svg = d3
         .select(containerId)
@@ -86,7 +86,7 @@ function animData(containerId, color) {
 
         console.log('data', data);
 
-        var xEnd = dims.innerWidth - 15;
+        var xEnd = dims.innerWidth - margin.right;
 
         var x2 = d3.scaleLinear()
                 .domain([

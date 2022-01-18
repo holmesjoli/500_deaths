@@ -16,12 +16,17 @@ body {
     font-style: normal;
 }
 
-h1 {
-    font-size: 36pt;
-    margin: 20px 40px 10px 40px;
+h1,
+#timer,
+.anim-text {
     font-family: novecento-sans, sans-serif;
     font-weight: 300;
     font-style: normal;
+}
+
+h1 {
+    margin: 20px 40px 10px 40px;
+    font-size: 36pt;
 }
 
 h2 {
@@ -32,6 +37,7 @@ h2 {
 p {
     font-size: 13pt;
     line-height: 1.1em;
+    margin: 7px 0;
 }
 
 .source > p {
@@ -128,14 +134,14 @@ line {
 .flex-container {
     display: flex;
     flex-direction: row;
-    padding: 8px 20px;
+    padding: 10px 20px 10px 40px;
 }
 
-.flex-container2 {
+.left {
     display: flex;
     flex-direction: column;
-    max-width: 31%;
-    padding: 10px 20px;
+    padding-right: 15px;
+    /* padding: 10px 15px 10px 20px; */
 }
 
 .timer-container {
@@ -143,18 +149,16 @@ line {
     text-align: center;
 }
 
-
 #timer {
     width: 150px;
     height: 150px;
-    font-size: 26pt;
+    font-size: 32pt;
     border: 3px #ffffff solid;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 10px 20px 20px 20px;
-    position: absolute;
+    margin: 20px;
 }
 
 a, a:visited {
