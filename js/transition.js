@@ -66,7 +66,7 @@ function animData(containerId, color) {
 
     var dims = dimensions(height = window.innerHeight*.70);
 
-    const margin = {left: 10, right: 15, top: 10, bottom: 10};
+    const margin = {left: 10, right: 35, top: 30, bottom: 10};
 
     var svg = d3
         .select(containerId)
@@ -88,7 +88,7 @@ function animData(containerId, color) {
 
         var xEnd = dims.innerWidth - margin.right;
 
-        var x2 = d3.scaleLinear()
+        var xScale = d3.scaleLinear()
                 .domain([
                     0,
                     d3.max(data, function(d) {
@@ -97,17 +97,18 @@ function animData(containerId, color) {
                 ])
                 .range([xEnd, 100]);
 
-        var yStart = margin.top;
-        var y2 = d3
+        var yStart = margin.top + 10;
+
+        var yScale = d3
             .scaleBand()
             .domain(data.map(function(d) {
                 return d.demo_indicator;
             }))
             .range([dims.innerHeight, yStart]);
 
-        var legenddata = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
+        var legendData = [{"demo_indicator": "0-17"}, {"demo_indicator":"18-29"},{"demo_indicator":"30-49"},{"demo_indicator":"50-64"},{"demo_indicator":"65-74"},{"demo_indicator":"75+"}];
 
-        console.log(legenddata);
+        console.log(legendData);
 
         var colorScale = d3
             .scaleOrdinal()
@@ -118,7 +119,7 @@ function animData(containerId, color) {
 
         var colorScalelegend = d3
             .scaleOrdinal()
-            .domain(legenddata.map(function(d) {
+            .domain(legendData.map(function(d) {
                 return d.demo_indicator;
             }))
             .range(color);
@@ -128,7 +129,7 @@ function animData(containerId, color) {
         .enter()
         .append("circle")
             .attr("cx", 90)
-            .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
+            .attr("cy", function(d) {return yScale(d.demo_indicator) + 15})
             .attr("r", 10)
             .attr("id", function(d) {return d.demo_indicator})
             .style("fill", function(d) {return colorScalelegend(d.demo_indicator)})
@@ -143,8 +144,8 @@ function animData(containerId, color) {
             .transition()
             .delay(function(d) {return d.delay;})
             .duration(function(d) {return d.millisec_per_death})
-            .attr("cx", function(d) {return x2(d.id)})
-            .attr("cy", function(d) {return y2(d.demo_indicator) + 15})
+            .attr("cx", function(d) {return xScale(d.id)})
+            .attr("cy", function(d) {return yScale(d.demo_indicator) + 15})
             .style("fill", "grey");
 
         // //glow
@@ -169,11 +170,11 @@ function animData(containerId, color) {
 
         // Add one dot in the legend for each name.
         // svg.selectAll("legend")
-        // .data(legenddata)
+        // .data(legendData)
         // .enter()
         // .append("circle")
         // .attr("cx", 90)
-        // .attr("cy", function(d) {return y2(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
+        // .attr("cy", function(d) {return yScale(d.demo_indicator) + 15}) // 100 is where the first dot appears. 25 is the distance between dots
         // .attr("r", 7)
         // .style("fill", function(d) { return colorScalelegend(d.demo_indicator)})
         // .style("stroke", function(d) {
@@ -183,11 +184,11 @@ function animData(containerId, color) {
 
       //  Add one dot in the legend for each name.
         svg.selectAll("mylabels")
-        .data(legenddata)
+        .data(legendData)
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", function(d){return y2(d.demo_indicator) + 15})
+        .attr("y", function(d){return yScale(d.demo_indicator) + 15;})
         .style("fill", "white")
         .text(function(d){return d.demo_indicator;})
         .attr("text-anchor", "right")
@@ -197,30 +198,46 @@ function animData(containerId, color) {
         // .append("text")
         // .attr("class", "count-title") 
         // .attr("x", dims.innerWidth - 30)
-        // .attr("y", 100)
+        // .attr("y", margin.top)
         // .style("fill", "white")
+        // .attr("text-anchor", "center")
+        // .style("alignment-baseline", "middle")
         // .text("# of deaths");
 
         // g.selectAll("mycount")
-        // .data(legenddata)
-        // .enter()
-        // .append("text")
-        //     .attr("class", "count")
-        //     .attr("x", dims.innerWidth)
-        //     .attr("y", function(d) {return y2(d.demo_indicator) + 20})
-        //     .style("fill", "white")
-        //     .text("0");
+        //     .data(legendData)
+        //     .enter()
+        //     .append("text")
+        //         .attr("class", "count")
+        //         .attr("x", dims.innerWidth + 5)
+        //         .attr("y", function(d) {return yScale(d.demo_indicator) + 20})
+        //         .style("fill", "white")
+        //         .text("0");
+
+// xScale.bandwidth()
+
+        g.selectAll(".count")
+            .data(data)
+            .style("opacity"    , 1)
+            .transition()
+            .delay(1000)
+            .duration(function(d) {return d.millisec_per_death})
+            // .attr("y", function(d) {return yScale(d.demo_indicator) + 22})
+            .style("opacity", 0)
+            .remove()
+            .transition()
+            .style("opacity", 1)
+            .text(function(d) {return d.id2});
 
         // g.selectAll(".count")
         //     .data(data)
         //     .transition()
-        //     .delay(function(d) {return d.delay2;})
-        //     .duration(function(d) {return d.millisec_per_deaths*2})
-        //     .text(function(d) {return d.id2})
+        //     .delay(1000)
+        //     .duration(function(d) {return d.millisec_per_death})
         //     .style('opacity', 1)
         //     .attr("text-anchor", "left")
         //     .style("alignment-baseline", "middle")
-        //     .remove();
+        //     .text(function(d) {return d.id2});
 
         svg
         .append('line')
@@ -252,8 +269,8 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-var delay = 32000;
-// var delay = 0;
+// var delay = 32000;
+var delay = 0;
 
 setTimeout(function() {
     buildTimer();
