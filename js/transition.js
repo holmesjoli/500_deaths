@@ -183,16 +183,6 @@ function animData(containerId, color) {
         // .style("stroke-opacity", .7);
 
       //  Add one dot in the legend for each name.
-        svg.selectAll("mylabels")
-        .data(legendData)
-        .enter()
-        .append("text")
-        .attr("x", 30)
-        .attr("y", function(d){return yScale(d.demo_indicator) + 15;})
-        .style("fill", "white")
-        .text(function(d){return d.demo_indicator;})
-        .attr("text-anchor", "right")
-        .style("alignment-baseline", "middle");
 
         // g
         // .append("text")
@@ -214,20 +204,18 @@ function animData(containerId, color) {
         //         .style("fill", "white")
         //         .text("0");
 
-// xScale.bandwidth()
-
-        g.selectAll(".count")
-            .data(data)
-            .style("opacity"    , 1)
-            .transition()
-            .delay(1000)
-            .duration(function(d) {return d.millisec_per_death})
-            // .attr("y", function(d) {return yScale(d.demo_indicator) + 22})
-            .style("opacity", 0)
-            .remove()
-            .transition()
-            .style("opacity", 1)
-            .text(function(d) {return d.id2});
+        // g.selectAll(".count")
+        //     .data(data)
+        //     .style("opacity", 1)
+        //     .transition()
+        //     .delay(1000)
+        //     .duration(function(d) {return d.millisec_per_death})
+        //     // .attr("y", function(d) {return yScale(d.demo_indicator) + 22})
+        //     .style("opacity", 0)
+        //     .remove()
+        //     .transition()
+        //     .style("opacity", 1)
+        //     .text(function(d) {return d.id2});
 
         // g.selectAll(".count")
         //     .data(data)
@@ -239,23 +227,34 @@ function animData(containerId, color) {
         //     .style("alignment-baseline", "middle")
         //     .text(function(d) {return d.id2});
 
-        svg
-        .append('line')
-        .attr("x1", 75)
-        .attr("x2", 75)
-        .attr("y1", yStart)
-        .attr("y2", dims.innerHeight)
-        .attr("stroke", "white")
-        .attr("stroke-opacity", 1);
+        svg.selectAll("mylabels")
+            .data(legendData)
+            .enter()
+            .append("text")
+            .attr("x", 20)
+            .attr("y", function(d){return yScale(d.demo_indicator) + 15;})
+            .style("fill", "white")
+            .text(function(d){return d.demo_indicator;})
+            .attr("text-anchor", "right")
+            .style("alignment-baseline", "middle");
 
         svg
-        .append('line')
-        .attr("x1", xEnd)
-        .attr("x2", xEnd)
-        .attr("y1", yStart)
-        .attr("y2", dims.innerHeight)
-        .attr("stroke", "white")
-        .attr("stroke-opacity", 1);
+            .append('line')
+            .attr("x1", 70)
+            .attr("x2", 70)
+            .attr("y1", yStart - 10)
+            .attr("y2", dims.innerHeight - 25)
+            .attr("stroke", "white")
+            .attr("stroke-opacity", 1);
+
+        svg
+            .append('line')
+            .attr("x1", xEnd)
+            .attr("x2", xEnd)
+            .attr("y1", yStart - 10)
+            .attr("y2", dims.innerHeight - 25)
+            .attr("stroke", "white")
+            .attr("stroke-opacity", 1);
     });
 }
 
