@@ -24,7 +24,7 @@ function dimensions (height = 440) {
     var width = height*1.70;
 
     var margin = {
-        top: 25,
+        top: 10,
         right: 50,
         bottom: 5,
         left: 0
@@ -97,7 +97,7 @@ function animData(containerId, color) {
                 ])
                 .range([xEnd, 100]);
 
-        var yStart = margin.top + 10;
+        var yStart = dims.margin.top + 10;
 
         var yScale = d3
             .scaleBand()
@@ -182,51 +182,7 @@ function animData(containerId, color) {
         // })
         // .style("stroke-opacity", .7);
 
-      //  Add one dot in the legend for each name.
-
-        // g
-        // .append("text")
-        // .attr("class", "count-title") 
-        // .attr("x", dims.innerWidth - 30)
-        // .attr("y", margin.top)
-        // .style("fill", "white")
-        // .attr("text-anchor", "center")
-        // .style("alignment-baseline", "middle")
-        // .text("# of deaths");
-
-        // g.selectAll("mycount")
-        //     .data(legendData)
-        //     .enter()
-        //     .append("text")
-        //         .attr("class", "count")
-        //         .attr("x", dims.innerWidth + 5)
-        //         .attr("y", function(d) {return yScale(d.demo_indicator) + 20})
-        //         .style("fill", "white")
-        //         .text("0");
-
-        // g.selectAll(".count")
-        //     .data(data)
-        //     .style("opacity", 1)
-        //     .transition()
-        //     .delay(1000)
-        //     .duration(function(d) {return d.millisec_per_death})
-        //     // .attr("y", function(d) {return yScale(d.demo_indicator) + 22})
-        //     .style("opacity", 0)
-        //     .remove()
-        //     .transition()
-        //     .style("opacity", 1)
-        //     .text(function(d) {return d.id2});
-
-        // g.selectAll(".count")
-        //     .data(data)
-        //     .transition()
-        //     .delay(1000)
-        //     .duration(function(d) {return d.millisec_per_death})
-        //     .style('opacity', 1)
-        //     .attr("text-anchor", "left")
-        //     .style("alignment-baseline", "middle")
-        //     .text(function(d) {return d.id2});
-
+        // Labels
         svg.selectAll("mylabels")
             .data(legendData)
             .enter()
@@ -255,6 +211,51 @@ function animData(containerId, color) {
             .attr("y2", dims.innerHeight - 25)
             .attr("stroke", "white")
             .attr("stroke-opacity", 1);
+
+        // Hourly tally
+        // g
+        //     .append("text")
+        //     .attr("class", "count-title") 
+        //     .attr("x", dims.innerWidth - 30)
+        //     .attr("y", dims.margin.top)
+        //     .style("fill", "white")
+        //     .attr("text-anchor", "center")
+        //     .style("alignment-baseline", "middle")
+        //     .text("# of deaths");
+
+        // g.selectAll("mycount")
+        //     .data(legendData)
+        //     .enter()
+        //     .append("text")
+        //         .attr("class", "count")
+        //         .attr("x", dims.innerWidth + 5)
+        //         .attr("y", function(d) {return yScale(d.demo_indicator) + 20})
+        //         .style("fill", "white")
+        //         .text("0");
+
+        // g.selectAll("mycount")
+        //     .data(data)
+        //     .attr("opacity", 1)
+        //     .transition()
+        //     // .transition()
+        //     // .delay(function(d) {return d.delay;})
+        //     .duration(function(d) {return d.millisec_per_death + d.delay;})
+        //     .attr("opacity", 0)
+        //     .remove()
+        //     // .transition()
+        //     // .style("opacity", 1)
+        //     // .text(function(d) {return d.id2})
+        //     ;
+
+        // g.selectAll(".count")
+        //     .data(data)
+        //     .transition()
+        //     .delay(1000)
+        //     .duration(function(d) {return d.millisec_per_death})
+        //     .style('opacity', 1)
+        //     .attr("text-anchor", "left")
+        //     .style("alignment-baseline", "middle")
+        //     .text(function(d) {return d.id2});
     });
 }
 
@@ -268,8 +269,8 @@ function buildViz(containerId) {
 
 // Set the delay to 7 seconds + the animation-delay of the last text transition. Right now that is 29. Then convert to milliseconds.
 
-// var delay = 32000;
-var delay = 0;
+var delay = 32000;
+// var delay = 0;
 
 setTimeout(function() {
     buildTimer();
